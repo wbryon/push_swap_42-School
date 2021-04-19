@@ -2,7 +2,7 @@ NAME		= push_swap
 
 HEADER		= push_swap.h
 
-SRCS		= push_swap.c ps_operation_1.c ps_operation_2.c ps_operation_3.c
+SRCS		= push_swap.c ps_operation_1.c ps_operation_2.c ps_operation_3.c first_sort.c
 
 LIBFT		= libft/*.c
 
