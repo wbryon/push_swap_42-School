@@ -21,6 +21,14 @@ int	sort_three(t_stack *stack)
 	return (0);
 }
 
+int	sort_four(t_stack *stack)
+{
+	int	i;
+
+	i = -1;
+	return (0);
+}
+
 int	sort_five(t_stack *stack)
 {
 	int	i;
@@ -28,6 +36,7 @@ int	sort_five(t_stack *stack)
 	i = -1;
 	pb(stack);
 	pb(stack);
+	if (stack->b[0] < stack->b[1])
 	sort_three(stack);
 	if (stack->a[0] < stack->b[0])
 	{
