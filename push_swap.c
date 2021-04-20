@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	}
 	write(1, "\n", 1);
 	check_range(stack.a, argc - 1);
-	for_three(&stack);
+	sort_five(&stack);
 	i = -1;
 	while (++i < stack.size_a)
 		printf("i=|%d| stack_a=|%d| stack_b=|%d|\n", i, stack.a[i], stack.b[i]);

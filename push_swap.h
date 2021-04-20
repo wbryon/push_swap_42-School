@@ -22,5 +22,6 @@ int				rr(t_stack *stack);
 int				rra(t_stack *stack);
 int				rrb(t_stack *stack);
 int				rrr(t_stack *stack);
-int				for_three(t_stack *stack);
+int				sort_three(t_stack *stack);
+int				sort_five(t_stack *stack);
 int				check_range(int *range, int count);
