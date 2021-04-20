@@ -11,10 +11,7 @@ int	main(int argc, char **argv)
 	stack.size_a = argc - 1;
 	stack.size_b = 0;
 	if (argc == 1)
-	{
-		//write(1, "Error:wrong ARGC\n", 17);
 		exit(-1);
-	}
 	stack.a = ft_calloc(argc - 1, sizeof(int));
 	stack.b = ft_calloc(0, sizeof(int));
 	while (argv[++i])
