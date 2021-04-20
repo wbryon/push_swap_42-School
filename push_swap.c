@@ -12,7 +12,7 @@ int	main(int argc, char **argv)
 	stack.size_b = 0;
 	if (argc == 1)
 	{
-		write(1, "Error:wrong ARGC\n", 17);
+		//write(1, "Error:wrong ARGC\n", 17);
 		exit(-1);
 	}
 	stack.a = ft_calloc(argc - 1, sizeof(int));
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 				j++;
 			if (!ft_isdigit(argv[i][j]))
 			{
-				write(2, "Error\n", 6);
+				//write(2, "Error\n", 6);
 				exit(-1);
 			}
 		}
@@ -36,14 +36,14 @@ int	main(int argc, char **argv)
 	{
 		stack.a[i] = ft_atoi(argv[i + 1]);
 		line = ft_itoa(stack.a[i]);
-		write(1, line, ft_strlen(line));
-		write(1, "\n", 1);
+		//write(1, line, ft_strlen(line));
+		//write(1, "\n", 1);
 	}
 	write(1, "\n", 1);
 	check_range(stack.a, argc - 1);
 	sort_five(&stack);
 	i = -1;
 	while (++i < stack.size_a)
-		printf("i=|%d| stack_a=|%d| stack_b=|%d|\n", i, stack.a[i], stack.b[i]);
+		printf("stack_a=|%d|\n", stack.a[i]);
 	return (0);
 }

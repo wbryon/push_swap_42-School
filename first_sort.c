@@ -36,6 +36,8 @@ int	sort_five(t_stack *stack)
 	}
 	i = -1;
 	mid = stack->a[0];
+	if (mid == min)
+		mid = stack->a[1];
 	while (++i < stack->size_a)
 	{
 		if (stack->a[i] > stack->a[i + 1] && stack->a[i + 1] < mid && stack->a[i + 1] != min)
@@ -86,5 +88,13 @@ int	sort_five(t_stack *stack)
 	sort_three(stack);
 	pa(stack);
 	pa(stack);
+	return (0);
+}
+
+int	sort_handred(t_stack *stack)
+{
+	int	mid;
+
+	mid = stack->size_a / 2;
 	return (0);
 }
