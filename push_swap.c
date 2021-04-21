@@ -45,5 +45,6 @@ int	main(int argc, char **argv)
 	i = -1;
 	while (++i < stack.size_a)
 		printf("i=|%d| stack_a=|%d| stack_b=|%d|\n", i, stack.a[i], stack.b[i]);
+	printf("operations=|%d|\n", stack.op_count);
 	return (0);
 }

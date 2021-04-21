@@ -21,65 +21,51 @@ int	sort_three(t_stack *stack)
 	return (0);
 }
 
-int	find_min_stack_a(t_stack *stack)
+void	find_min_max(t_stack *stack)
 {
 	int	i;
-	int	min;
 
 	i = -1;
-	min = stack->a[0];
+	stack->min_a = stack->a[0];
 	while (++i < stack->size_a)
 	{
-		if (stack->a[i] > stack->a[i + 1] && stack->a[i + 1] < min)
-			min = stack->a[i + 1];
+		if (stack->a[i] > stack->a[i + 1] && stack->a[i + 1] < stack->min_a)
+			stack->min_a = stack->a[i + 1];
 	}
-	return (min);
-}
-
-int	sort_four(t_stack *stack)
-{
-	if (stack->a[0] == find_min(stack))
+	i = -1;
+	stack->max_a = stack->a[0];
+	while (++ i < stack->size_a)
 	{
-		pb(stack);
-		sort_three(stack);
-		pa(stack);
-	}
-	else if (stack->a[1] == find_min(stack))
-	{
-		sa(stack);
-		pb(stack);
-		sort_three(stack);
-		pa(stack);
-	}
-	else if (stack->a[2] == find_min(stack))
-	{
-		ra(stack);
-		ra(stack);
-		pb(stack);
-		sort_three(stack);
-		pa(stack);
-	}
-	else
-	{
-		rra(stack);
-		pb(stack);
-		sort_three(stack);
-		pa(stack);
+		if (stack->a[i] < stack->a[i + 1] && stack->a[i + 1] > stack->max_a)
+			stack->max_a = stack->a[i + 1];
 	}
 }
 
 int	sort_five(t_stack *stack)
 {
-	int	i;
-	int	min;
-	int	mid;
-
-	i = -1;
-	min = stack->a[0];;
-	while (++i < stack->size_a)
+	find_min_max(stack);
+	if (stack->max_a < 3 || stack->min_a < 3)
 	{
-		if (stack->a[i] > stack->a[i + 1] && stack->a[i + 1] < min)
-			min = stack->a[i + 1];
+		while (stack->a[0] != stack->min_a || stack->a[0] != stack->max_a)
+			ra(stack);
+		pb(stack);
+		while (stack->a[0] != stack->min_a || stack->a[0] != stack->max_a)
+			ra(stack);
+		pb(stack);
 	}
+	else
+	{
+		rra(stack);
+		pb(stack);
+		rra(stack);
+		pb(stack);
+	}
+	sort_three(stack);
+	pa(stack);
+	if (stack->a[0] == stack->max_a)
+		ra(stack);
+	pa(stack);
+	if (stack->a[0] == stack->max_a)
+		ra(stack);
 	return (0);
 }
