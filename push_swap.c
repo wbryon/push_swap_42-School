@@ -41,12 +41,10 @@ int	main(int argc, char **argv)
 	}
 	//write(1, "\n", 1);
 	check_range(stack.a, argc - 1);
-	sort_five(&stack);
+	sort_hundred(&stack);
 	i = -1;
 	while (++i < stack.size_a)
-		printf("%d ", stack.a[i]);
-	printf("   operations=|%d|\n\n", stack.op_count);
-	if (stack.op_count > 10)
-		printf("ALARM!!!");
+		printf("stack_a=|%d| stack_b=|%d|\n", stack.a[i], stack.b[i]);
+	//printf("   operations=|%d|\n\n", stack.op_count);
 	return (0);
 }
