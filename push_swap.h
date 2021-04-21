@@ -8,6 +8,8 @@ typedef	struct	s_stack
 	int			*a;
 	int			*b;
 	int			op_count;
+	int			pos_min;
+	int			pos_max;
 	int			min_a;
 	int			max_a;
 	int			size_a;

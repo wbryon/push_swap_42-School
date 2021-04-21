@@ -7,9 +7,9 @@ int	ra(t_stack *stack)
 
 	i = -1;
 	x = stack->a[0];
-	while (++i < stack->size_a && stack->a[i] < stack->size_a - 1)
+	while (++i < stack->size_a - 1)
 		stack->a[i] = stack->a[i + 1];
-	stack->a[stack->size_a - 1] = x;
+	stack->a[i] = x;
 	stack->op_count+=1;
 	return (0);
 }
@@ -21,9 +21,9 @@ int	rb(t_stack *stack)
 
 	i = -1;
 	x = stack->b[0];
-	while (++i < stack->size_b)
+	while (++i < stack->size_b - 1)
 		stack->b[i] = stack->b[i + 1];
-	stack->b[i - 1] = x;
+	stack->b[i] = x;
 	stack->op_count+=1;
 	return (0);
 }

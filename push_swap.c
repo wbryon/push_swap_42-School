@@ -36,15 +36,17 @@ int	main(int argc, char **argv)
 	{
 		stack.a[i] = ft_atoi(argv[i + 1]);
 		line = ft_itoa(stack.a[i]);
-		write(1, line, ft_strlen(line));
-		write(1, "\n", 1);
+		//write(1, line, ft_strlen(line));
+		//write(1, " ", 1);
 	}
-	write(1, "\n", 1);
+	//write(1, "\n", 1);
 	check_range(stack.a, argc - 1);
 	sort_five(&stack);
 	i = -1;
 	while (++i < stack.size_a)
-		printf("i=|%d| stack_a=|%d| stack_b=|%d|\n", i, stack.a[i], stack.b[i]);
-	printf("operations=|%d|\n", stack.op_count);
+		printf("%d ", stack.a[i]);
+	printf("   operations=|%d|\n\n", stack.op_count);
+	if (stack.op_count > 10)
+		printf("ALARM!!!");
 	return (0);
 }
