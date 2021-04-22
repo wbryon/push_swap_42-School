@@ -64,6 +64,8 @@ void	sort_hundred(t_stack *stack)
 			count++;
 			if (count == 5)
 			{
+				printf("check");
+				printf("top_argument=|%d|\n", stack->a[i]);
 				if (i <= stack->size_a / 2)
 				{
 					top = stack->a[i + 1];

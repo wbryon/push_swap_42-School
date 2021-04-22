@@ -36,4 +36,4 @@ void			find_min_max(t_stack *stack);
 int				sort_three(t_stack *stack);
 void			sort_five(t_stack *stack);
 void			sort_hundred(t_stack *stack);
-int				check_range(int *range, int count);
+int				check_range(t_stack *stack);

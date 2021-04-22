@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 		//write(1, " ", 1);
 	}
 	//write(1, "\n", 1);
-	check_range(stack.a, argc - 1);
+	check_range(&stack);
 	sort_hundred(&stack);
 	i = -1;
 	while (++i < stack.size_a)

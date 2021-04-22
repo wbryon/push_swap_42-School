@@ -8,20 +8,18 @@ int	rrr(t_stack *stack)
 	return (0);
 }
 
-int	check_range(int *range, int count)
+int	check_range(t_stack *stack)
 {
 	int	i;
 	int	j;
-	int	tmp;
 
-	i = 0;
-	while (++i < count)
+	i = -1;
+	while (++i < stack->size_a)
 	{
-		tmp = range[i];
 		j = i;
-		while (++j < count)
+		while (++j < stack->size_a)
 		{
-			if (tmp == range[j])
+			if (stack->a[i] == stack->a[j])
 			{
 				write(2, "Error: duplicated numbers\n", 27);
 				return (0);
