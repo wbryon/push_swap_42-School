@@ -41,10 +41,15 @@ int	main(int argc, char **argv)
 	}
 	//write(1, "\n", 1);
 	check_range(&stack);
-	sort_hundred(&stack);
+	push_to_b(&stack);
+	sort_five(&stack);
 	i = -1;
 	while (++i < stack.size_a)
-		printf("stack_a=|%d| stack_b=|%d|\n", stack.a[i], stack.b[i]);
-	//printf("   operations=|%d|\n\n", stack.op_count);
+		printf("stack_a=|%d|\n", stack.a[i]);
+		write(1, "\n", 1);
+	i = -1;
+	while (++i < stack.size_b)
+		printf("stack_b=|%d|\n", stack.b[i]);
+	printf("operations=|%d|\n\n", stack.op_count);
 	return (0);
 }

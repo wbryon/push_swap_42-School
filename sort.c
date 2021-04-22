@@ -47,7 +47,13 @@ void	sort_five(t_stack *stack)
 		ra(stack);
 }
 
-void	sort_hundred(t_stack *stack)
+void	sort_ten(t_stack *stack)
+{
+	push_to_b(stack);
+	sort_five(stack);
+}
+
+void	find_five(t_stack *stack)
 {
 	int	i;
 	int	count;
@@ -55,18 +61,17 @@ void	sort_hundred(t_stack *stack)
 	int	bottom;
 
 	i = -1;
-	count = -1;
+	count = 0;
 	while (++i < stack->size_a - 1)
 	{
-		count++;
 		if (stack->a[i] < stack->a[i + 1])
-		{
 			count++;
+		if (stack->a[i] > stack->a[i + 1] && count < 5)
+			count = 0;
+			printf("i=%d  count=%d  stack_a=%d\n", i, count, stack->a[i]);
 			if (count == 5)
 			{
-				printf("check");
-				printf("top_argument=|%d|\n", stack->a[i]);
-				if (i <= stack->size_a / 2)
+				if (i - 2 <= stack->size_a / 2)
 				{
 					top = stack->a[i + 1];
 					bottom = stack->a[i - 4];
@@ -75,7 +80,15 @@ void	sort_hundred(t_stack *stack)
 					while (stack->a[0] != bottom)
 						pb(stack);
 				}
+				else
+				{
+					top = stack->a[i + 1];
+					bottom = stack->a[i - 4];
+					while (stack->a[0] != top)
+						rra(stack);
+					while (stack->a[0] != bottom)
+						pb(stack); 
+				}
 			}
-		}
 	}
 }

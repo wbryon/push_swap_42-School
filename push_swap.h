@@ -32,6 +32,7 @@ void			case_b(t_stack *stack);
 void			case_c(t_stack *stack);
 void			case_d(t_stack *stack);
 void			if_sorted(t_stack *stack);
+void			push_to_b(t_stack *stack);
 void			find_min_max(t_stack *stack);
 int				sort_three(t_stack *stack);
 void			sort_five(t_stack *stack);
