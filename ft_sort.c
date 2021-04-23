@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int	sort_three(t_stack *stack)
+int     sort_three(t_stack *stack)
 {
 	if (stack->a[0] > stack->a[1] && stack->a[1] > stack->a[2]
 		&& stack->a[2] < stack->a[0])
@@ -26,7 +26,7 @@ int	sort_three(t_stack *stack)
 	return (0);
 }
 
-void	sort_five(t_stack *stack)
+void    sort_five(t_stack *stack)
 {
 	find_min_max(stack);
 	if (stack->pos_max < 3 && stack->pos_min < 3)
@@ -37,7 +37,9 @@ void	sort_five(t_stack *stack)
 		&& (stack->pos_max > 3 || stack->pos_min > 3))
 		case_c(stack);
 	else
+	{
 		case_d(stack);
+	}
 	sort_three(stack);
 	pa(stack);
 	if (stack->a[0] == stack->max_a)
