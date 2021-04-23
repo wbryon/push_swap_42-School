@@ -8,8 +8,12 @@ int	main(int argc, char **argv)
 	char	*line;
 
 	i = 0;
+	init_vars(&stack);	
 	stack.size_a = argc - 1;
 	stack.size_b = 0;
+	stack.op_count_a = 0;
+	stack.op_count_b = 0;
+	stack.op_name_a = NULL;
 	if (argc == 1)
 	{
 		write(1, "Error:wrong ARGC\n", 17);
@@ -31,6 +35,7 @@ int	main(int argc, char **argv)
 			}
 		}
 	}
+
 	i = -1;
 	while (++i < argc - 1)
 	{
@@ -41,12 +46,14 @@ int	main(int argc, char **argv)
 	}
 	//write(1, "\n", 1);
 	check_range(&stack);
-	sort_five(&stack);
+	sort_ten(&stack);
 	i = -1;
 	while (++i < stack.size_a)
 		printf("%d ", stack.a[i]);
 	printf("   operations=|%d|\n\n", stack.num_of_ops);
-	if (stack.num_of_ops > 10)
-		printf("ALARM!!!");
+	//if (stack.num_of_ops > 10)
+	i = -1;
+	while (++i < stack.size_b)
+		printf("stack_b %s  ops=%d\n\n", stack.op_name_b[i], stack.op_count_b[i]);
 	return (0);
 }

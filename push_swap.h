@@ -14,10 +14,10 @@ typedef	struct	s_stack
 	int			max_a;
 	int			size_a;
 	int			size_b;
-	//int         *op_count_a;
-	//int         *op_count_b;
-	//char        **op_name_a;
-    //char        **op_name_b;
+	int			*op_count_a;
+	int			*op_count_b;
+	char        **op_name_a;
+    char        **op_name_b;
 }				t_stack;
 
 int				sa(t_stack *stack);
@@ -40,5 +40,7 @@ void			push_to_b(t_stack *stack);
 void			find_min_max(t_stack *stack);
 int				sort_three(t_stack *stack);
 void			sort_five(t_stack *stack);
-//void			sort_hundred(t_stack *stack);
+void			sort_ten(t_stack *stack);
+void			sort_hundred(t_stack *stack);
+void			init_vars(t_stack *stack);
 int				check_range(t_stack *stack);

@@ -48,3 +48,29 @@ void	sort_five(t_stack *stack)
 	if (stack->a[0] == stack->max_a)
 		ra(stack);
 }
+
+void	sort_ten(t_stack *stack)
+{
+	int	i;
+
+	i = -1;
+	push_to_b(stack);
+	stack->op_count_a = ft_calloc(1, sizeof(int));
+	stack->op_count_b = ft_calloc(1, sizeof(int));
+	stack->op_name_a = (char **)ft_calloc(stack->size_a, sizeof(char *));
+	stack->op_name_b = (char **)ft_calloc(stack->size_b, sizeof(char *));
+	sort_five(stack);
+	while (++i < stack->size_b)
+	{
+		if (i <= stack->size_b / 2)
+		{
+			stack->op_name_b[i] = "rb";
+			stack->op_count_b[i] = i;
+		}
+		else
+		{
+			stack->op_name_b[i] = "rrb";
+			stack->op_count_b[i] = stack->size_b - i;
+		}
+	}
+}
