@@ -10,7 +10,6 @@ int	main(int argc, char **argv)
 	i = 0;
 	stack.size_a = argc - 1;
 	stack.size_b = 0;
-    stack.num_of_ops = 0;
 	if (argc == 1)
 	{
 		write(1, "Error:wrong ARGC\n", 17);
@@ -33,7 +32,7 @@ int	main(int argc, char **argv)
 		}
 	}
 	i = -1;
-    while (++i < argc - 1)
+	while (++i < argc - 1)
 	{
 		stack.a[i] = ft_atoi(argv[i + 1]);
 		line = ft_itoa(stack.a[i]);
@@ -42,15 +41,12 @@ int	main(int argc, char **argv)
 	}
 	//write(1, "\n", 1);
 	check_range(&stack);
-	push_to_b(&stack);
 	sort_five(&stack);
 	i = -1;
 	while (++i < stack.size_a)
-		printf("stack_a=|%d|\n", stack.a[i]);
-		write(1, "\n", 1);
-	i = -1;
-	while (++i < stack.size_b)
-		printf("stack_b=|%d|\n", stack.b[i]);
-	printf("operations=%d\n\n", stack.num_of_ops);
+		printf("%d ", stack.a[i]);
+	printf("   operations=|%d|\n\n", stack.num_of_ops);
+	if (stack.num_of_ops > 10)
+		printf("ALARM!!!");
 	return (0);
 }
