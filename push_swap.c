@@ -49,11 +49,15 @@ int	main(int argc, char **argv)
 	sort_ten(&stack);
 	i = -1;
 	while (++i < stack.size_a)
-		printf("%d ", stack.a[i]);
-	printf("   operations=|%d|\n\n", stack.num_of_ops);
+		printf("%d %d\n", stack.a[i], stack.b[i]);
+	//printf("   operations=|%d|\n\n", stack.num_of_ops);
 	//if (stack.num_of_ops > 10)
+	//i = -1;
+	//while (++i < stack.size_b)
+	//	printf("stack_b %s  ops=%d\n\n", stack.op_name_b[i], stack.op_count_b[i]);
 	i = -1;
-	while (++i < stack.size_b)
-		printf("stack_b %s  ops=%d\n\n", stack.op_name_b[i], stack.op_count_b[i]);
+	write(1, "\n", 1);
+	while (++i < stack.size_a)
+		printf("stack_a %s  ops=%d\n\n", stack.op_name_a[i], stack.op_count_a[i]);
 	return (0);
 }
