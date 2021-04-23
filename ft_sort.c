@@ -49,6 +49,23 @@ void	sort_five(t_stack *stack)
 
 void	sort_ten(t_stack *stack)
 {
-	push_to_b(stack);
+    int i;
+
+    i = -1;
+    push_to_b(stack);
+    stack->op_name_b = (char **) ft_calloc(stack->size_b, sizeof(char *));
 	sort_five(stack);
+	while (++i < stack->size_b)
+    {
+	    if (i <= stack->size_b / 2)
+        {
+            stack->op_name_b[i] = "rb";
+            stack->op_count_b[i] = i;
+        }
+        else
+        {
+            stack->op_name_b[i] = "rrb";
+            stack->op_count_b[i] = i;
+        }
+    }
 }

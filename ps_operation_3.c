@@ -4,7 +4,7 @@ int	rrr(t_stack *stack)
 {
 	rra(stack);
 	rrb(stack);
-	stack->op_count+=1;
+	stack->num_of_ops+=1;
 	return (0);
 }
 

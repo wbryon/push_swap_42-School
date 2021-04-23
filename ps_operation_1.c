@@ -9,7 +9,7 @@ int	sa(t_stack *stack)
 	x = stack->a[0];
 	stack->a[0] = stack->a[1];
 	stack->a[1] = x;
-	stack->op_count+=1;
+	stack->num_of_ops+=1;
 	return (0);
 }
 
@@ -22,7 +22,7 @@ int	sb(t_stack *stack)
 	x = stack->b[0];
 	stack->b[0] = stack->b[1];
 	stack->b[1] = x;
-	stack->op_count+=1;
+	stack->num_of_ops+=1;
 	return (0);
 }
 
@@ -64,7 +64,7 @@ int	pa(t_stack *stack)
 		stack->b[i] = tmp_b[i];
 	stack->size_b-=1;
 	free(tmp_b);
-	stack->op_count+=1;
+	stack->num_of_ops+=1;
 	return (0);
 }
 
@@ -99,6 +99,6 @@ int	pb(t_stack *stack)
 		stack->a[i] = tmp_a[i];
 	stack->size_a-=1;
 	free(tmp_a);
-	stack->op_count+=1;
+	stack->num_of_ops+=1;
 	return (0);
 }

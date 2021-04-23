@@ -7,13 +7,17 @@ typedef	struct	s_stack
 {
 	int			*a;
 	int			*b;
-	int			op_count;
+	int			num_of_ops;
 	int			pos_min;
 	int			pos_max;
 	int			min_a;
 	int			max_a;
 	int			size_a;
 	int			size_b;
+	int         *op_count_a;
+	int         *op_count_b;
+	char        **op_name_a;
+    char        **op_name_b;
 }				t_stack;
 
 int				sa(t_stack *stack);
