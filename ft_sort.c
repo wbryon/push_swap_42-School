@@ -49,7 +49,7 @@ void	sort_five(t_stack *stack)
 		ra(stack);
 }
 
-void	sort_ten(t_stack *stack)
+void	rot_finder(t_stack *stack)
 {
 	int	i;
 	int	j;
@@ -75,6 +75,7 @@ void	sort_ten(t_stack *stack)
 		}
 		j = -1;
 		while (++j < stack->size_a)
+		{
 			if (stack->b[i] > stack->a[j] && stack->b[i] < stack->a[j + 1])
 			{
 				if (j < stack->size_a / 2)
@@ -88,5 +89,94 @@ void	sort_ten(t_stack *stack)
 					stack->op_count_a[i] = stack->size_a - j - 1;
 				}
 			}
+		}
+	}
+}
+
+void	rot_calc(t_stack *stack)
+{
+	int	i;
+
+	i = -1;
+	rot_finder(stack);
+	stack->sum_ops = ft_calloc(stack->size_b, sizeof(int));
+	while (++i < stack->size_b)
+	{
+		if (ft_strcmp(stack->op_name_a[i], "ra") == 0 && ft_strcmp(stack->op_name_b[i], "rb") == 0)
+		{
+			if (stack->op_count_a[i] >= stack->op_count_b[i])
+				stack->sum_ops[i] = stack->op_count_a[i];
+			else
+				stack->sum_ops[i] = stack->op_count_b[i];
+		}
+		else if (ft_strcmp(stack->op_name_a[i], "rra") == 0 && ft_strcmp(stack->op_name_b[i], "rrb") == 0)
+		{
+			if (stack->op_count_a[i] >= stack->op_count_b[i])
+				stack->sum_ops[i] = stack->op_count_a[i];
+			else
+				stack->sum_ops[i] = stack->op_count_b[i];
+		}
+		else
+			stack->sum_ops[i] = stack->op_count_a[i] + stack->op_count_b[i];
+	}
+}
+
+void	rot_rr(t_stack *stack)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	rot_calc(stack);
+	while (++i < stack->size_b)
+	{
+		j = -1;
+		if (ft_strcmp(stack->op_name_a[i], "ra") == 0 && ft_strcmp(stack->op_name_b[i], "rb") == 0)
+		{
+			if (stack->op_count_a[i] >= stack->op_count_b[i])
+			{
+				while (++j < stack->op_count_b[i])
+					rr(stack);
+				while (j < stack->op_count_a[i])
+					ra(stack);
+			}
+			else
+			{
+				while (++j < stack->op_count_a[i])
+					rr(stack);
+				while (j < stack->op_count_b[i])
+					rb(stack);
+			}
+		}
+	}
+}
+
+void	rot_rrr(t_stack *stack)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	rot_calc(stack);
+	while (++i < stack->size_b)
+	{
+		j = -1;
+		if (ft_strcmp(stack->op_name_a[i], "rra") == 0 && ft_strcmp(stack->op_name_b[i], "rrb") == 0)
+		{
+			if (stack->op_count_a[i] >= stack->op_count_b[i])
+			{
+				while (++j < stack->op_count_b[i])
+					rrr(stack);
+				while (j < stack->op_count_a[i])
+					rra(stack);
+			}
+			else
+			{
+				while (++j < stack->op_count_a[i])
+					rrr(stack);
+				while (j < stack->op_count_b[i])
+					rrb(stack);
+			}
+		}
 	}
 }

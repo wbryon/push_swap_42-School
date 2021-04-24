@@ -16,6 +16,7 @@ typedef	struct	s_stack
 	int			max_b;
 	int			size_a;
 	int			size_b;
+	int			*sum_ops;
 	int			*op_count_a;
 	int			*op_count_b;
 	char        **op_name_a;
@@ -43,7 +44,9 @@ void			find_min_max_a(t_stack *stack);
 void			find_min_max_b(t_stack *stack);
 int				sort_three(t_stack *stack);
 void			sort_five(t_stack *stack);
-void			sort_ten(t_stack *stack);
+void			global_sort(t_stack *stack);
 void			sort_hundred(t_stack *stack);
+void			rot_finder(t_stack *stack);
+void			rot_calc(t_stack *stack);
 void			init_vars(t_stack *stack);
 int				check_range(t_stack *stack);
