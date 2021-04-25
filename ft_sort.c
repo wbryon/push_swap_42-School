@@ -46,8 +46,35 @@ void	sort_five(t_stack *stack)
 	if (stack->a[0] == stack->max_a)
 		ra(stack);
 }
+/*
+void	if_b_lower_then_min_a(t_stack *stack)
+{
+	int	i;
 
-void	bigger_then_max_a(t_stack *stack)
+	i = -1;
+	while (++i < stack->size_b)
+	{
+		if (stack->b[i] < stack->min_a)
+		{
+			if (i < stack->size_b / 2 + 1)
+			{
+				while (i > 0)
+				{
+					stack->op_name_b[i] = "rb";
+					stack->op_count_b[i] = i;
+				}
+			}
+			else
+			{
+				while (stack->b[i] != stack->b[0])
+					rrb(stack);
+			}
+		}
+	}
+			
+}
+
+void	if_b_bigger_then_max_a(t_stack *stack)
 {
 	int	i;
 
@@ -57,9 +84,12 @@ void	bigger_then_max_a(t_stack *stack)
 		if (stack->b[i] > stack->max_a)
 		{
 			if (i < stack->size_b / 2 + 1)
+			{
+				while
+			}
 		}
 	}
-}
+}*/
 
 void	rot_finder(t_stack *stack)
 {
@@ -86,9 +116,14 @@ void	rot_finder(t_stack *stack)
 			stack->op_count_b[i] = stack->size_b - i;
 		}
 		j = -1;
-		while (++j < stack->size_a)
+		while (++j < stack->size_a - 1)
 		{
-			if (stack->b[i] > stack->a[j] && stack->b[i] < stack->a[j + 1] && stack->a[j + 1] < stack->max_a)
+			if (stack->b[i] < stack->min_a || stack->b[i] > stack->max_a)
+			{
+				stack->op_name_a[i] = "NULL";
+				stack->op_count_a[i] = 0;
+			}
+			if (stack->b[i] > stack->a[j] && stack->b[i] < stack->a[j + 1])
 			{
 				if (j < stack->size_a / 2)
 				{
@@ -97,7 +132,6 @@ void	rot_finder(t_stack *stack)
 				}
 				else
 				{
-					printf("j=%d   stack_a[j]=%d   counts=%d\n", j, stack->a[j], stack->op_count_a[i]);
 					stack->op_name_a[i] = "rra";
 					stack->op_count_a[i] = stack->size_a - j - 1;
 				}
@@ -134,43 +168,190 @@ void	rot_calc(t_stack *stack)
 	}
 }
 
-void	rot_rr(t_stack *stack)
+void	do_rr(t_stack *stack)
 {
 	int	i;
 	int	j;
+	int	k;
 
 	i = -1;
-	rot_calc(stack);
 	while (++i < stack->size_b)
 	{
-		j = -1;
+		rot_calc(stack);
+		j = 0;
 		if (ft_strcmp(stack->op_name_a[i], "ra") == 0 && ft_strcmp(stack->op_name_b[i], "rb") == 0)
 		{
-			if (stack->op_count_a[i] >= stack->op_count_b[i])
+			if (stack->op_count_a[i] > stack->op_count_b[i])
 			{
-				while (++j < stack->op_count_b[i])
-					rr(stack);
+				while (j < stack->op_count_b[i])
+				{
+						rr(stack);
+						j++;
+				}
 				while (j < stack->op_count_a[i])
-					ra(stack);
+				{
+						ra(stack);
+						j++;
+				}
+			}
+			else if (stack->op_count_a[i] < stack->op_count_b[i])
+			{
+				while (j < stack->op_count_a[i])
+				{
+						rr(stack);
+						j++;
+				}
+				while (j < stack->op_count_b[i])
+				{
+						rb(stack);
+						j++;
+				}
 			}
 			else
 			{
-				while (++j < stack->op_count_a[i])
+				while (j < stack->op_count_a[i])
+				{
 					rr(stack);
-				while (j < stack->op_count_b[i])
-					rb(stack);
+					j++;
+				}
 			}
 		}
+		else if (ft_strcmp(stack->op_name_a[i], "rra") == 0 && ft_strcmp(stack->op_name_b[i], "rrb") == 0)
+		{
+			if (stack->op_count_a[i] > stack->op_count_b[i])
+			{
+				while (j < stack->op_count_b[i])
+				{
+					rrr(stack);
+					j++;
+				}
+				while (j < stack->op_count_a[i])
+				{
+					rra(stack);
+					j++;
+				}
+			}
+			else if (stack->op_count_a[i] < stack->op_count_b[i])
+			{
+				while (j < stack->op_count_a[i])
+				{
+					rrr(stack);
+					j++;
+				}
+				while (j < stack->op_count_b[i])
+				{
+					rrb(stack);
+					j++;
+				}
+			}
+			else
+			{
+				while (j < stack->op_count_a[i])
+				{
+					rrr(stack);
+					j++;
+				}
+			}
+		}
+		else
+		{
+			if (stack->op_count_a[i] > 0 && stack->op_count_b[i] > 0)
+			{
+				if (ft_strcmp(stack->op_name_a[i], "ra") == 0 && ft_strcmp(stack->op_name_b[i], "rrb") == 0)
+				{
+					while (j < stack->op_count_a[i])
+					{
+						ra(stack);
+						j++;
+					}
+					while (j < stack->sum_ops[i])
+					{
+						rrb(stack);
+						j++;
+					}
+				}
+				else if (ft_strcmp(stack->op_name_a[i], "rra") == 0 && ft_strcmp(stack->op_name_b[i], "rb") == 0)
+				{
+					while (j < stack->op_count_a[i])
+					{
+						rra(stack);
+						j++;
+					}
+					while (j < stack->sum_ops[i])
+					{
+						rb(stack);
+						j++;
+					}
+				}
+				else
+				{
+					while (j < stack->op_count_a[i])
+					{
+						ra(stack);
+						j++;
+					}
+					while (j < stack->sum_ops[i])
+					{
+						rb(stack);
+						j++;
+					}
+				}
+			}
+			else if (stack->op_count_a[i] > 0 && stack->op_count_b[i] == 0)
+			{
+				if (ft_strcmp(stack->op_name_a[i], "ra") == 0)
+				{
+					while (j < stack->op_count_a[i])
+					{
+						ra(stack);
+						j++;
+					}
+				}
+				else if (ft_strcmp(stack->op_name_a[i], "rra") == 0)
+				{
+					while (j < stack->op_count_a[i])
+					{
+						rra(stack);
+						j++;
+					}
+				}
+			}
+			else if (stack->op_count_a[i] == 0 && stack->op_count_b[i] > 0)
+			{
+				if (ft_strcmp(stack->op_name_b[i], "rb") == 0)
+				{
+					while (j < stack->op_count_b[i])
+					{
+						rb(stack);
+						j++;
+					}
+				}
+				else if (ft_strcmp(stack->op_name_b[i], "rrb") == 0)
+				{
+					while (j < stack->op_count_b[i])
+					{
+						rrb(stack);
+						j++;
+					}
+				}
+			}
+		}
+		pa(stack);
+		while (stack->a[0] != stack->min_a)
+			ra(stack);
+		k = -1;
+		printf("\n");
+		while (++k < stack->size_a)
+			printf("k=%d stack_a=%d\n",k, stack->a[k]);
 	}
 }
-
-void	rot_rrr(t_stack *stack)
+/*
+void	do_rrr(t_stack *stack)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	rot_calc(stack);
 	while (++i < stack->size_b)
 	{
 		j = -1;
@@ -245,18 +426,13 @@ void	multi_dir(t_stack *stack)
 			}
 		}
 	}
-}
+}*/
 
 void	global_sort(t_stack *stack)
 {
 	int	i;
 
 	i = -1;
-	while (++i < stack->size_b)
-	{
-		rot_rr(stack);
-		rot_rrr(stack);
-		multi_dir(stack);
-		pa(stack);
-	}
+	rot_calc(stack);
+	do_rr(stack);
 }

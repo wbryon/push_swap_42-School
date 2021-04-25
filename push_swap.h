@@ -48,5 +48,6 @@ void			global_sort(t_stack *stack);
 void			sort_hundred(t_stack *stack);
 void			rot_finder(t_stack *stack);
 void			rot_calc(t_stack *stack);
+void			do_rr(t_stack *stack);
 void			init_vars(t_stack *stack);
 int				check_range(t_stack *stack);
