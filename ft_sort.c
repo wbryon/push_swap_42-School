@@ -97,9 +97,9 @@ void	rot_finder(t_stack *stack)
 	int	j;
 
 	i = -1;
-	stack->op_count_a = (int *)ft_calloc(stack->size_b, sizeof(int));
+	stack->op_count_a = (int *)ft_calloc(stack->size_a, sizeof(int));
 	stack->op_count_b = (int *)ft_calloc(stack->size_b, sizeof(int));
-	stack->op_name_a = (char **)ft_calloc(stack->size_b, sizeof(char *));
+	stack->op_name_a = (char **)ft_calloc(stack->size_a, sizeof(char *));
 	stack->op_name_b = (char **)ft_calloc(stack->size_b, sizeof(char *));
 	while (++i < stack->size_b)
 	{
@@ -107,17 +107,11 @@ void	rot_finder(t_stack *stack)
 		{
 			stack->op_name_b[i] = "rb";
 			stack->op_count_b[i] = i;
-			printf("i=%3d  size_a=%d  %3s  %d   stack_a=%d\n", i, stack->size_a, stack->op_name_a[i], stack->op_count_a[i], stack->a[i]);
-			printf("i=%3d  size_b=%d  %3s  %d   stack_b=%d\n", i, stack->size_b, stack->op_name_b[i], stack->op_count_b[i], stack->b[i]);
-			printf("\n");
 		}
 		else
 		{
 			stack->op_name_b[i] = "rrb";
 			stack->op_count_b[i] = stack->size_b - i;
-			printf("i=%3d  size_a=%d  %3s  %d   stack_a=%d\n", i, stack->size_a, stack->op_name_a[i], stack->op_count_a[i], stack->a[i]);
-			printf("i=%3d  size_b=%d  %3s  %d   stack_b=%d\n", i, stack->size_b, stack->op_name_b[i], stack->op_count_b[i], stack->b[i]);
-			printf("\n");
 		}
 		j = -1;
 		while (++j < stack->size_a - 1)
@@ -126,27 +120,21 @@ void	rot_finder(t_stack *stack)
 			{
 				stack->op_name_a[i] = "ra";
 				stack->op_count_a[i] = 0;
-				printf("i=%3d  size_a=%d  %3s  %d   stack_a=%d\n", i, stack->size_a, stack->op_name_a[i], stack->op_count_a[i], stack->a[i]);
-				printf("i=%3d  size_b=%d  %3s  %d   stack_b=%d\n", i, stack->size_b, stack->op_name_b[i], stack->op_count_b[i], stack->b[i]);
-				printf("\n");
 			}
-			if (stack->b[i] > stack->a[j] && stack->b[i] < stack->a[j + 1])
+			else if (stack->b[i] > stack->a[j] && stack->b[i] < stack->a[j + 1])
 			{
 				if (j < stack->size_a / 2)
 				{
 					stack->op_name_a[i] = "ra";
 					stack->op_count_a[i] = j + 1;
-					printf("i=%3d  size_a=%d  %3s  %d   stack_a=%d\n", i, stack->size_a, stack->op_name_a[i], stack->op_count_a[i], stack->a[i]);
-					printf("i=%3d  size_b=%d  %3s  %d   stack_b=%d\n", i, stack->size_b, stack->op_name_b[i], stack->op_count_b[i], stack->b[i]);
-					printf("\n");
 				}
 				else
 				{
 					stack->op_name_a[i] = "rra";
 					stack->op_count_a[i] = stack->size_a - j - 1;
-					printf("i=%3d  size_a=%d  %3s  %d   stack_a=%d\n", i, stack->size_a, stack->op_name_a[i], stack->op_count_a[i], stack->a[i]);
-					printf("i=%3d  size_b=%d  %3s  %d   stack_b=%d\n", i, stack->size_b, stack->op_name_b[i], stack->op_count_b[i], stack->b[i]);
-					printf("\n");
+					//printf("i=%3d  size_a=%d  %3s  %d   stack_a=%d\n", i, stack->size_a, stack->op_name_a[i], stack->op_count_a[i], stack->a[i]);
+					//printf("i=%3d  size_b=%d  %3s  %d   stack_b=%d\n", i, stack->size_b, stack->op_name_b[i], stack->op_count_b[i], stack->b[i]);
+					//printf("\n");
 				}
 			}
 		}
@@ -185,7 +173,7 @@ void	do_rr(t_stack *stack)
 {
 	int	i;
 	int	j;
-	//int	k;
+	int	k;
 
 	push_to_b(stack);
 	sort_five(stack);
@@ -195,14 +183,14 @@ void	do_rr(t_stack *stack)
 		while (++i < stack->size_b)
 		{
 			rot_calc(stack);
-			/*k = -1;
+			k = -1;
 			printf("\n");
 			while (++k < stack->size_b)
-				printf("k=%3d  size_b=%d  %3s  %d   stack_b=%d\n",k, stack->size_b, stack->op_name_b[k], stack->op_count_b[k], stack->b[k]);
+				printf("k=%d   %-4s %d   stack_b=%d\n",k, stack->op_name_b[k], stack->op_count_b[k], stack->b[k]);
 			k = -1;
 			printf("\n");
 			while (++k < stack->size_a)
-				printf("k=%3d  size_a=%d  %3s  %d   stack_a=%d\n",k, stack->size_a, stack->op_name_a[k], stack->op_count_a[k], stack->a[k]);*/
+				printf("k=%d   %-4s %d   stack_=%d\n",k, stack->op_name_a[k], stack->op_count_a[k], stack->a[k]);
 			j = 0;
 			if (ft_strcmp(stack->op_name_a[i], "ra") == 0 && ft_strcmp(stack->op_name_b[i], "rb") == 0)
 			{
@@ -364,14 +352,18 @@ void	do_rr(t_stack *stack)
 			pa(stack);
 			while (stack->a[0] != stack->min_a)
 				ra(stack);
-			/*k = -1;
+			k = -1;
 			printf("\n");
 			while (++k < stack->size_b)
-				printf("k=%3d   %3s  %d   stack_b=%d\n",k, stack->op_name_b[k], stack->op_count_b[k], stack->b[k]);
+				printf("k=%d   %-4s %d   stack_b=%d\n", k, stack->op_name_b[k], stack->op_count_b[k], stack->b[k]);
 			k = -1;
 			printf("\n");
 			while (++k < stack->size_a)
-				printf("k=%3d   %3s  %d   stack_a=%d\n",k, stack->op_name_a[k], stack->op_count_a[k], stack->a[k]);*/
+				printf("k=%d   %-4s %d   stack_=%d\n", k, stack->op_name_a[k], stack->op_count_a[k], stack->a[k]);
+			//k = -1;
+			//printf("\n");
+			//while (++k < stack->size_a)
+			//	printf("k=%3d   stack_a=%d\n",k, stack->a[k]);
 		}
 	}
 }
