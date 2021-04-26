@@ -35,7 +35,6 @@ int	main(int argc, char **argv)
 			}
 		}
 	}
-
 	i = -1;
 	while (++i < argc - 1)
 	{
@@ -46,7 +45,6 @@ int	main(int argc, char **argv)
 	}
 	//write(1, "\n", 1);
 	check_range(&stack);
-	//rot_calc(&stack);
 	global_sort(&stack);
 	//i = -1;
 	//while (++i < stack.size_a)
