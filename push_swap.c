@@ -8,12 +8,8 @@ int	main(int argc, char **argv)
 	char	*line;
 
 	i = 0;
-	init_vars(&stack);	
+	init_vars(&stack);
 	stack.size_a = argc - 1;
-	stack.size_b = 0;
-	stack.op_count_a = 0;
-	stack.op_count_b = 0;
-	stack.op_name_a = NULL;
 	if (argc == 1)
 	{
 		write(1, "Error:wrong ARGC\n", 17);
@@ -59,5 +55,6 @@ int	main(int argc, char **argv)
 	//printf("\n");
 	//while (++i < stack.size_a)
 	//	printf("i=%d  num_a=%d  op_a=%s  ops=%d\n\n", i, stack.a[i], stack.op_name_a[i], stack.op_count_a[i]);
+	free_all(&stack);
 	return (0);
 }

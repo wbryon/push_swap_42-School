@@ -24,3 +24,24 @@ void	push_to_b(t_stack *stack)
 	while (stack->size_a > 5)
 		pb(stack);
 }
+
+void	free_all(t_stack *stack)
+{
+	free(stack->op_count_a);
+	free(stack->op_count_b);
+	free(stack->op_name_a);
+	free(stack->op_name_b);
+	free(stack->sum_ops);
+}
+
+void	flags(t_stack *s, int i)
+{
+	if (ft_strcmp(s->op_name_a[i], "ra") == 0 && ft_strcmp(s->op_name_b[i], "rb") == 0)
+		s->flag = 1;
+	if (ft_strcmp(s->op_name_a[i], "rra") == 0 && ft_strcmp(s->op_name_b[i], "rrb") == 0)
+		s->flag = 2;
+	if (ft_strcmp(s->op_name_a[i], "ra") == 0 && ft_strcmp(s->op_name_b[i], "rrb") == 0)
+		s->flag = 3;
+	if (ft_strcmp(s->op_name_a[i], "rra") == 0 && ft_strcmp(s->op_name_b[i], "rb") == 0)
+		s->flag = 4;
+}

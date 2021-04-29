@@ -26,6 +26,7 @@ clean:
 						make clean -C "libft"
 fclean:			clean
 						make fclean -C "libft"
+						$(RM) $(NAME)
 
 re:						fclean all
 

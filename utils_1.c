@@ -4,49 +4,39 @@ void	find_min_max_a(t_stack *stack)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	stack->min_a = stack->a[0];
-	while (++i < stack->size_a - 1)
+	while (++i < stack->size_a)
 	{
-		if (stack->a[i] > stack->a[i + 1] && stack->a[i + 1] < stack->min_a)
+		if (stack->a[i] < stack->min_a)
 		{
-			stack->min_a = stack->a[i + 1];
-			stack->pos_min = i + 1;
+			stack->min_a = stack->a[i];
+			stack->pos_min = i;
 		}
 	}
-	i = -1;
+	i = 0;
 	stack->max_a = stack->a[0];
-	while (++ i < stack->size_a - 1)
+	while (++i < stack->size_a)
 	{
-		if (stack->a[i] < stack->a[i + 1] && stack->a[i + 1] > stack->max_a)
+		if (stack->a[i] > stack->max_a)
 		{
-			stack->max_a = stack->a[i + 1];
-			stack->pos_max = i + 1;
+			stack->max_a = stack->a[i];
+			stack->pos_max = i;
 		}
 	}
 }
-void	find_min_max_b(t_stack *stack)
+void	find_ops_min(t_stack *stack)
 {
 	int	i;
 
 	i = -1;
-	stack->min_b = stack->b[0];
-	while (++i < stack->size_b - 1)
+	while (++i < stack->size_b)
 	{
-		if (stack->b[i] > stack->b[i + 1] && stack->b[i + 1] < stack->min_b)
+		stack->ops_min = stack->sum_ops[0];
+		if (stack->ops_min > stack->sum_ops[i])
 		{
-			stack->min_b = stack->b[i + 1];
-			stack->pos_min = i + 1;
-		}
-	}
-	i = -1;
-	stack->max_b = stack->b[0];
-	while (++ i < stack->size_b - 1)
-	{
-		if (stack->b[i] < stack->b[i + 1] && stack->b[i + 1] > stack->max_b)
-		{
-			stack->max_b = stack->b[i + 1];
-			stack->pos_max = i + 1;
+			stack->ops_min = stack->sum_ops[i];
+			stack->pos_min = i;
 		}
 	}
 }
