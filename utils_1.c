@@ -30,9 +30,9 @@ void	find_ops_min(t_stack *stack)
 	int	i;
 
 	i = -1;
+	stack->ops_min = stack->sum_ops[0];
 	while (++i < stack->size_b)
 	{
-		stack->ops_min = stack->sum_ops[0];
 		if (stack->ops_min > stack->sum_ops[i])
 		{
 			stack->ops_min = stack->sum_ops[i];

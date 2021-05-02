@@ -50,7 +50,7 @@ void			mid_a(t_stack *stack, int i);
 void			get_commands_a(t_stack *stack);
 void			get_commands_b(t_stack *stack);
 void			get_commands(t_stack *s);
-void			rot_calc(t_stack *stack, int i);
+void			rot_calc(t_stack *stack);
 void			do_rr(t_stack *stack, int i);
 void			do_rrr(t_stack *stack, int i);
 void			multi_dir(t_stack *stack, int i);
