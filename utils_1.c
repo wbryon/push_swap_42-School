@@ -34,10 +34,7 @@ void	find_ops_min(t_stack *stack)
 	while (++i < stack->size_b)
 	{
 		if (stack->ops_min > stack->sum_ops[i])
-		{
 			stack->ops_min = stack->sum_ops[i];
-			stack->pos_min = i;
-		}
 	}
 }
 

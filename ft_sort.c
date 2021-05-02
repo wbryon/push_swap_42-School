@@ -49,35 +49,30 @@ void	sort_five(t_stack *s)
 
 void	if_max(t_stack *s, int i)
 {
-	if (s->b[i] > s->max_a)
+	if (s->pos_max < s->size_a / 2 + 1)
 	{
-		if (s->pos_max < s->size_a / 2)
-		{
-			s->op_name_a[i] = "ra";
-			s->op_count_a[i] = s->pos_max + 1;
-		}
-		else
-		{
-			s->op_name_a[i] = "rra";
-			s->op_count_a[i] = s->size_a - s->pos_max - 1;
-		}
+		printf("pos_max=%d\n", s->pos_max);
+		s->op_name_a[i] = "ra";
+		s->op_count_a[i] = s->pos_max + 1;
+	}
+	else
+	{
+		s->op_name_a[i] = "rra";
+		s->op_count_a[i] = s->size_a - s->pos_max - 1;
 	}
 }
 
 void	if_min(t_stack *s, int i)
 {
-	if (s->b[i] < s->min_a)
+	if (s->a[i] < s->size_a / 2 + 1)
 	{
-		if (s->pos_min < s->size_a / 2 + 1)
-		{
-			s->op_name_a[i] = "ra";
-			s->op_count_a[i] = s->pos_min;
-		}
-		else
-		{
-			s->op_name_a[i] = "rra";
-			s->op_count_a[i] = s->size_a - s->pos_min;
-		}
+		s->op_name_a[i] = "ra";
+		s->op_count_a[i] = s->pos_min;
+	}
+	else
+	{
+		s->op_name_a[i] = "rra";
+		s->op_count_a[i] = s->size_a - s->pos_min;
 	}
 }
 
@@ -112,7 +107,6 @@ void	get_commands_a(t_stack *s)
 	i = -1;
 	while (++i < s->size_b)
 	{
-		find_min_max_a(s);
 		if (s->b[i] > s->max_a)
 			if_max(s, i);
 		else if (s->b[i] < s->min_a)
@@ -126,7 +120,7 @@ void	get_commands_b(t_stack *s)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	while (++i < s->size_b)
 	{
 		if (i < s->size_b / 2 + 1)
@@ -141,22 +135,21 @@ void	get_commands_b(t_stack *s)
 		}
 	}
 	if (s->size_b % 2 == 0)
-		if (!ft_strcmp(s->op_name_a[s->size_b / 2], "rra"))
-			s->op_name_a[s->size_b / 2] = "rrb";
+		if (ft_strcmp(s->op_name_a[s->size_b / 2], "rra") == 0)
+			s->op_name_b[s->size_b / 2] = "rrb";
 }
 
 void	get_commands(t_stack *s)
 {
 	get_commands_a(s);
 	get_commands_b(s);
-	}
+}
 
 void	rot_calc(t_stack *s)
 {
 	int	i;
 
 	i = -1;
-	printf("i=%-2d  flag_dir=%d     stack_a=%d     %-4s %-5d  stack_b=%-5d  %-4s %-5d\n", i, s->flag, s->a[i], s->op_name_a[i], s->op_count_a[i], s->b[i], s->op_name_b[i], s->op_count_b[i]);
 	s->sum_ops[0] = s->op_count_a[0];
 	while (++i < s->size_b)
 	{
@@ -182,221 +175,9 @@ void	rot_calc(t_stack *s)
 	}
 }
 
-void	do_rr(t_stack *s, int i)
-{
-	int	j;
-	printf("i=%-2d   flag=%d   %-4s %-5d   stack_b=%-5d   %-4s %-5d\n", i, s->flag, s->op_name_a[i], s->op_count_a[i], s->b[i], s->op_name_b[i], s->op_count_b[i]);
-	j = 0;
-	if (s->op_count_a[i] > s->op_count_b[i])
-	{
-		while (j < s->op_count_b[i])
-		{
-			rr(s);
-			j++;
-		}
-		while (j < s->ops_min)
-		{
-			ra(s);
-			j++;
-		}
-	}
-	else if (s->op_count_a[i] < s->op_count_b[i])
-	{
-		while (j < s->op_count_a[i])
-		{
-			rr(s);
-			j++;
-		}
-		while (j < s->ops_min)
-		{
-			rb(s);
-			j++;
-		}
-	}
-	else
-	{
-		while (j < s->op_count_a[i])
-		{
-			rr(s);
-			j++;
-		}
-	}
-}
-
-void	do_rrr(t_stack *s, int i)
-{
-	int	j;
-
-	j = 0;
-	if (s->op_count_a[i] > s->op_count_b[i])
-	{
-		while (j < s->op_count_b[i])
-		{
-			rrr(s);
-			j++;
-		}
-		while (j < s->ops_min)
-		{
-			rra(s);
-			j++;
-		}
-		/*int k = -1;
-		while (++k < s->size_a)
-			printf("k=%d  rrr=%d\n", k, s->a[k]);
-		printf("\n");*/
-	}
-	else if (s->op_count_a[i] < s->op_count_b[i])
-	{
-		while (j < s->op_count_a[i])
-		{
-			rrr(s);
-			j++;
-		}
-		while (j < s->ops_min)
-		{
-			rrb(s);
-			j++;
-		}
-		/*k = -1;
-		while (++k < s->size_a)
-			printf("k=%d  rrr=%d\n", k, s->a[k]);
-		printf("\n");*/
-	}
-	else
-	{
-		while (j < s->op_count_a[i])
-		{
-			rrr(s);
-			j++;
-		}
-		/*k = -1;
-		while (++k < s->size_a)
-			printf("k=%d  rrr=%d\n", k, s->a[k]);
-		printf("\n");*/
-	}
-}
-
-void	multi_dir(t_stack *s, int i)
-{
-	int	j;
-
-	j = 0;
-	//printf("i=%-2d  flag_dir=%d     stack_a=%d     %-4s %-5d  stack_b=%-5d  %-4s %-5d\n", i, s->flag, s->a[i], s->op_name_a[i], s->op_count_a[i], s->b[i], s->op_name_b[i], s->op_count_b[i]);
-	if (s->op_count_a[i] > 0 && s->op_count_b[i] > 0)
-	{
-		if (s->flag == 3)
-		{
-			while (j < s->op_count_a[i])
-			{
-				ra(s);
-				j++;
-			}
-			while (j < s->sum_ops[i])
-			{
-				rrb(s);
-				j++;
-			}
-			/*int k = -1;
-			while (++k < s->size_a)
-				printf("k=%d  dir=%d\n", k, s->a[k]);
-			printf("\n");*/
-		}
-		else if (s->flag == 4)
-		{
-			while (j < s->op_count_a[i])
-			{
-				rra(s);
-				j++;
-			}
-			while (j < s->sum_ops[i])
-			{
-				rb(s);
-				j++;
-			}
-			/*k = -1;
-			while (++k < s->size_a)
-				printf("k=%d  dir=%d\n", k, s->a[k]);
-			printf("\n");*/
-		}
-		else
-		{
-			while (j < s->op_count_a[i])
-			{
-				ra(s);
-				j++;
-			}
-			while (j < s->sum_ops[i])
-			{
-				rb(s);
-				j++;
-			}
-			/*k = -1;
-			while (++k < s->size_a)
-				printf("k=%d  dir=%d\n", k, s->a[k]);
-			printf("\n");*/
-		}
-	}
-	else if (s->op_count_a[i] > 0 && s->op_count_b[i] == 0)
-	{
-		if (ft_strcmp(s->op_name_a[i], "ra") == 0)
-		{
-			while (j < s->op_count_a[i])
-			{
-				ra(s);
-				j++;
-			}
-			/*k = -1;
-			while (++k < s->size_a)
-				printf("k=%d  dir=%d\n", k, s->a[k]);
-			printf("\n");*/
-		}
-		else if (ft_strcmp(s->op_name_a[i], "rra") == 0)
-		{
-			while (j < s->op_count_a[i])
-			{
-				rra(s);
-				j++;
-			}
-		}
-			/*k = -1;
-			while (++k < s->size_a)
-				printf("k=%d  dir=%d\n", k, s->a[k]);
-			printf("\n");*/
-	}
-	else if (s->op_count_a[i] == 0 && s->op_count_b[i] > 0)
-	{
-		if (ft_strcmp(s->op_name_b[i], "rb") == 0)
-		{
-			while (j < s->op_count_b[i])
-			{
-				rb(s);
-				j++;
-			}
-			/*k = -1;
-			while (++k < s->size_a)
-				printf("k=%d  dir=%d\n", k, s->a[k]);
-			printf("\n");*/
-		}
-		else if (ft_strcmp(s->op_name_b[i], "rrb") == 0)
-		{
-			while (j < s->op_count_b[i])
-			{
-				rrb(s);
-				j++;
-			}
-			/*k = -1;
-			while (++k < s->size_a)
-				printf("k=%d  dir=%d\n", k, s->a[k]);
-			printf("\n");*/
-		}
-	}
-}
-
 void	global_sort(t_stack *s)
 {
 	int	i;
-
-	i = 0;
 	push_to_b(s);
 	s->op_count_a = (int *)ft_calloc(s->size_b, sizeof(int));
 	s->op_count_b = (int *)ft_calloc(s->size_b, sizeof(int));
@@ -406,37 +187,43 @@ void	global_sort(t_stack *s)
 	sort_five(s);
 	while (s->size_b)
 	{
-		find_min_max_a(s);
-		get_commands(s);
-		rot_calc(s);
-		find_ops_min(s);
-		flags(s, i);
-		//printf("i=%d  a=%d  b=%d  flag=%d  %s  %d  %s  %d  sum_ops=%d  op_min=%d\n", i, s->a[i], s->b[i], s->flag, s->op_name_a[i], s->op_count_a[i], s->op_name_b[i], s->op_count_b[i], s->sum_ops[i], s->ops_min);
-		//printf("\n");
-		int j = -1;
-		while (++j < s->size_a)
-			printf("stack_a=%d\n", s->a[j]);
-		printf("\n");
-		if (s->sum_ops[i] == s->ops_min && s->flag == 1)
+		i = -1;
+		while (++i < s->size_b)
 		{
-			do_rr(s, i);
-			pa(s);
+			find_min_max_a(s);
+			get_commands_a(s);
+			get_commands_b(s);
+			rot_calc(s);
+			find_ops_min(s);
+			flags(s, i);
+			int k = -1;
+			while (++k < s->size_a)
+				printf("i=%d   a=%d\n", i, s->a[k]);
+			printf("\n");
+			printf("after  cycle: i=%d  op_min=%d  b=%d  %-4s  %d  %-4s  %d\n", s->ops_min, i, s->b[i], s->op_name_a[i], s->op_count_a[i], s->op_name_b[i], s->op_count_b[i]);
+			if (s->sum_ops[i] == s->ops_min && s->flag == 1)
+			{
+				do_rr(s, i);
+				pa(s);
+				break ;
+			}
+			if (s->sum_ops[i] == s->ops_min && s->flag == 2)
+			{
+				do_rrr(s, i);
+				pa(s);
+			}
+			if (s->sum_ops[i] == s->ops_min && s->flag == 3)
+			{
+				do_ra_rrb(s, i);
+				pa(s);
+				break ;
+			}
+			if (s->sum_ops[i] == s->ops_min && s->flag == 4)
+			{
+				do_rra_rb(s, i);
+				pa(s);
+				break ;
+			}
 		}
-		else if (s->sum_ops[i] == s->ops_min && s->flag == 2)
-		{
-			do_rrr(s, i);
-			pa(s);
-		}
-		else if (s->sum_ops[i] == s->ops_min && (s->flag == 3 || s->flag == 4 || s->flag == 5))
-		{
-			multi_dir(s, i);
-			pa(s);
-		}
-		i++;
-		/*j = -1;
-		while (++j < s->size_a)
-		{
-			printf("stack_a=%d  ", s->a[j]);
-		}*/
 	}
 }

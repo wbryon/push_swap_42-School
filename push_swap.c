@@ -42,21 +42,9 @@ int	main(int argc, char **argv)
 	//write(1, "\n", 1);
 	check_range(&stack);
 	global_sort(&stack);
-	i = -1;
-	printf("\n");
-	while (++i < stack.size_a)
-	printf("%d   ", stack.a[i]);
-	printf("\n\n");
-	//printf("   operations=|%d|\n\n", stack.num_of_ops);
-	//if (stack.num_of_ops > 10)
-	//i = -1;
-	//printf("\n");
-	//while (++i < stack.size_b)
-	//	printf("i=%d  num_b=%d  op_b=%s  ops=%d\n\n", i, stack.b[i], stack.op_name_b[i], stack.op_count_b[i]);
-	//i = -1;
-	//printf("\n");
-	//while (++i < stack.size_a)
-	//	printf("i=%d  num_a=%d  op_a=%s  ops=%d\n\n", i, stack.a[i], stack.op_name_a[i], stack.op_count_a[i]);
-	free_all(&stack);
+	int k = -1;
+	while (++k < stack.size_a)
+		printf("i=%d   a=%d\n", i, stack.a[k]);
+	//free_all(&stack);
 	return (0);
 }
