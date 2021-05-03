@@ -51,7 +51,6 @@ void	if_max(t_stack *s, int i)
 {
 	if (s->pos_max < s->size_a / 2 + 1)
 	{
-		printf("pos_max=%d\n", s->pos_max);
 		s->op_name_a[i] = "ra";
 		s->op_count_a[i] = s->pos_max + 1;
 	}
@@ -89,13 +88,14 @@ void	mid_a(t_stack *s, int i)
 			{
 				s->op_name_a[i] = "ra";
 				s->op_count_a[i] = j + 1;
+				break ;
 			}
 			else
 			{
 				s->op_name_a[i] = "rra";
 				s->op_count_a[i] = s->size_a - j - 1;
+				break ;
 			}
-			j = s->size_a;
 		}
 	}
 }
@@ -179,12 +179,12 @@ void	global_sort(t_stack *s)
 {
 	int	i;
 	push_to_b(s);
+	sort_five(s);
 	s->op_count_a = (int *)ft_calloc(s->size_b, sizeof(int));
 	s->op_count_b = (int *)ft_calloc(s->size_b, sizeof(int));
 	s->op_name_a = (char **)ft_calloc(s->size_b, sizeof(char *));
 	s->op_name_b = (char **)ft_calloc(s->size_b, sizeof(char *));
 	s->sum_ops = (int *)ft_calloc(s->size_b, sizeof(int));
-	sort_five(s);
 	while (s->size_b)
 	{
 		i = -1;
@@ -196,21 +196,17 @@ void	global_sort(t_stack *s)
 			rot_calc(s);
 			find_ops_min(s);
 			flags(s, i);
-			int k = -1;
-			while (++k < s->size_a)
-				printf("i=%d   a=%d\n", i, s->a[k]);
-			printf("\n");
-			printf("after  cycle: i=%d  op_min=%d  b=%d  %-4s  %d  %-4s  %d\n", s->ops_min, i, s->b[i], s->op_name_a[i], s->op_count_a[i], s->op_name_b[i], s->op_count_b[i]);
 			if (s->sum_ops[i] == s->ops_min && s->flag == 1)
 			{
 				do_rr(s, i);
-				pa(s);
-				break ;
+				//pa(s);
+				//break ;
 			}
 			if (s->sum_ops[i] == s->ops_min && s->flag == 2)
 			{
 				do_rrr(s, i);
 				pa(s);
+				break ;
 			}
 			if (s->sum_ops[i] == s->ops_min && s->flag == 3)
 			{
