@@ -11,4 +11,8 @@ void	init_vars(t_stack *stack)
 	stack->size_a = 0;
 	stack->size_b = 0;
 	stack->ops_min = 0;
+	stack->a = NULL;
+	stack->b = NULL;
+	stack->size_a = 0;
+	stack->size_b = 0;
 }

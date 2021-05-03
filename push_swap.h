@@ -1,7 +1,15 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+# define WIN_W 800
+# define WIN_H 600
+# define IMG_SIZE 500
+
+# include <stdlib.h>
+# include <unistd.h>
+# include "libft/libft.h"
+# include "gnl/get_next_line.h"
+# include "mlx.h"
+# include <stdio.h>
 
 typedef	struct	s_stack
 {
@@ -23,17 +31,17 @@ typedef	struct	s_stack
     char        **op_name_b;
 }				t_stack;
 
-int				sa(t_stack *stack);
-int				sb(t_stack *stack);
-int				ss(t_stack *stack);
-int				pa(t_stack *stack);
-int				pb(t_stack *stack);
-int				ra(t_stack *stack);
-int				rb(t_stack *stack);
-int				rr(t_stack *stack);
-int				rra(t_stack *stack);
-int				rrb(t_stack *stack);
-int				rrr(t_stack *stack);
+void			sa(t_stack *stack, int flag);
+void			sb(t_stack *stack, int flag);
+void			ss(t_stack *stack, int flag);
+void			pa(t_stack *stack, int flag);
+void			pb(t_stack *stack, int flag);
+void			ra(t_stack *stack, int flag);
+void			rb(t_stack *stack, int flag);
+void			rr(t_stack *stack, int flag);
+void			rra(t_stack *stack, int flag);
+void			rrb(t_stack *stack, int flag);
+void			rrr(t_stack *stack, int flag);
 void			do_ra_rrb(t_stack *stack, int i);
 void			do_rra_rb(t_stack *stack, int i);
 void			do_rr(t_stack *stack, int i);
@@ -46,7 +54,7 @@ void			if_sorted(t_stack *stack);
 void			push_to_b(t_stack *stack);
 void			find_min_max_a(t_stack *stack);
 void			find_ops_min(t_stack *stack);
-int				sort_three(t_stack *stack);
+void			sort_three(t_stack *stack);
 void			sort_five(t_stack *stack);
 void			global_sort(t_stack *stack);
 void			sort_hundred(t_stack *stack);
@@ -57,6 +65,12 @@ void			get_commands(t_stack *s);
 void			rot_calc(t_stack *stack);
 void			init_vars(t_stack *stack);
 void			flags(t_stack *s, int i);
+void			ft_fill_stack(t_stack *stack, char **buff);
+void			ft_check_args(char *str);
 int				check_range(t_stack *stack);
+int				ft_is_sorted(t_stack *stack);
 void			final_build(t_stack *stack);
 void			free_all(t_stack *stack);
+void			ft_error(void);
+
+#endif

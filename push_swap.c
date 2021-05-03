@@ -1,50 +1,30 @@
 #include "push_swap.h"
 
+static void	ft_split_args(int argc, char **argv, t_stack *stack)
+{
+	int		i;
+	char	**buff;
+
+	i = 1;
+	while (i < argc)
+	{
+		buff = ft_split(argv[i], ' ');
+		ft_fill_stack(stack, buff);
+		free(buff);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack stack;
-	int	i;
-	int	j;
-	char	*line;
 
-	i = 0;
-	init_vars(&stack);
-	stack.size_a = argc - 1;
 	if (argc == 1)
-	{
-		write(1, "Error:wrong ARGC\n", 17);
 		exit(-1);
-	}
-	stack.a = ft_calloc(argc - 1, sizeof(int));
-	stack.b = ft_calloc(0, sizeof(int));
-	while (argv[++i])
-	{
-		j = -1;
-		while (argv[i][++j])
-		{
-			if (argv[i][0] == '-' && argv[i][j + 1])
-				j++;
-			if (!ft_isdigit(argv[i][j]))
-			{
-				write(2, "Error\n", 6);
-				exit(-1);
-			}
-		}
-	}
-	i = -1;
-	while (++i < argc - 1)
-	{
-		stack.a[i] = ft_atoi(argv[i + 1]);
-		line = ft_itoa(stack.a[i]);
-		//write(1, line, ft_strlen(line));
-		//write(1, " ", 1);
-	}
-	//write(1, "\n", 1);
+	init_vars(&stack);
+	ft_split_args(argc, argv, &stack);
 	check_range(&stack);
 	global_sort(&stack);
-	int k = -1;
-	while (++k < stack.size_a)
-		printf("i=%d   a=%d\n", i, stack.a[k]);
-	//free_all(&stack);
+	free_all(&stack);
 	return (0);
 }

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int	ra(t_stack *stack)
+void	ra(t_stack *stack)
 {
 	int	x;
 	int	i;
@@ -11,10 +11,9 @@ int	ra(t_stack *stack)
 		stack->a[i] = stack->a[i + 1];
 	stack->a[i] = x;
 	stack->num_of_ops+=1;
-	return (0);
 }
 
-int	rb(t_stack *stack)
+void	rb(t_stack *stack)
 {
 	int	x;
 	int	i;
@@ -25,18 +24,16 @@ int	rb(t_stack *stack)
 		stack->b[i] = stack->b[i + 1];
 	stack->b[i] = x;
 	stack->num_of_ops+=1;
-	return (0);
 }
 
-int	rr(t_stack *stack)
+void	rr(t_stack *stack)
 {
 	ra(stack);
 	rb(stack);
 	stack->num_of_ops+=1;
-	return (0);
 }
 
-int	rra(t_stack *stack)
+void	rra(t_stack *stack)
 {
 	int	x;
 	int	i;
@@ -47,10 +44,9 @@ int	rra(t_stack *stack)
 		stack->a[i] = stack->a[i - 1];
 	stack->a[0] = x;
 	stack->num_of_ops+=1;
-	return (0);
 }
 
-int	rrb(t_stack *stack)
+void	rrb(t_stack *stack)
 {
 	int	x;
 	int	i;
@@ -61,5 +57,4 @@ int	rrb(t_stack *stack)
 		stack->b[i] = stack->b[i - 1];
 	stack->b[0] = x;
 	stack->num_of_ops+=1;
-	return (0);
 }

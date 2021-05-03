@@ -1,52 +1,5 @@
 #include "push_swap.h"
 
-int	sort_three(t_stack *s)
-{
-	if (s->a[0] > s->a[1] && s->a[1] > s->a[2]
-		&& s->a[2] < s->a[0])
-	{
-		sa(s);
-		rra(s);
-	}
-	if (s->a[0] > s->a[1] && s->a[1] < s->a[2]
-		&& s->a[2] < s->a[0])
-		ra(s);
-	if (s->a[0] < s->a[1] && s->a[1] > s->a[2]
-		&& s->a[2] < s->a[0])
-		rra(s);
-	if (s->a[0] > s->a[1] && s->a[1] < s->a[2]
-		&& s->a[2] > s->a[0])
-		sa(s);
-	if (s->a[0] < s->a[1] && s->a[1] > s->a[2]
-		&& s->a[2] > s->a[0])
-	{
-		rra(s);
-		sa(s);
-	}
-	return (0);
-}
-
-void	sort_five(t_stack *s)
-{
-	find_min_max_a(s);
-	if (s->pos_max < 3 && s->pos_min < 3)
-		case_a(s);
-	else if (s->pos_max > 2 && s->pos_min > 2)
-		case_b(s);
-	else if ((s->pos_max == 0 || s->pos_min == 0)
-		&& (s->pos_max > 3 || s->pos_min > 3))
-		case_c(s);
-	else
-		case_d(s);
-	sort_three(s);
-	pa(s);
-	if (s->a[0] == s->max_a)
-		ra(s);
-	pa(s);
-	if (s->a[0] == s->max_a)
-		ra(s);
-}
-
 void	if_max(t_stack *s, int i)
 {
 	if (s->pos_max < s->size_a / 2 + 1)
@@ -197,29 +150,13 @@ void	global_sort(t_stack *s)
 			find_ops_min(s);
 			flags(s, i);
 			if (s->sum_ops[i] == s->ops_min && s->flag == 1)
-			{
 				do_rr(s, i);
-				//pa(s);
-				//break ;
-			}
 			if (s->sum_ops[i] == s->ops_min && s->flag == 2)
-			{
 				do_rrr(s, i);
-				pa(s);
-				break ;
-			}
 			if (s->sum_ops[i] == s->ops_min && s->flag == 3)
-			{
 				do_ra_rrb(s, i);
-				pa(s);
-				break ;
-			}
 			if (s->sum_ops[i] == s->ops_min && s->flag == 4)
-			{
 				do_rra_rb(s, i);
-				pa(s);
-				break ;
-			}
 		}
 	}
 }

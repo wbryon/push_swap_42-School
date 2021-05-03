@@ -36,8 +36,6 @@ void	free_all(t_stack *stack)
 
 void	flags(t_stack *s, int i)
 {
-	//if (s->op_name_a[0] == NULL)
-	//	s->op_name_a[0] = "ra";
 	if (ft_strcmp(s->op_name_a[i], "ra") == 0 && ft_strcmp(s->op_name_b[i], "rb") == 0)
 		s->flag = 1;
 	else if (ft_strcmp(s->op_name_a[i], "rra") == 0 && ft_strcmp(s->op_name_b[i], "rrb") == 0)
@@ -48,4 +46,21 @@ void	flags(t_stack *s, int i)
 		s->flag = 4;
 	else
 		s->flag = 5;
+}
+
+void	init_vars(t_stack *stack)
+{
+	stack->num_of_ops = 0;
+	stack->flag = 0;
+	stack->pos_min = 0;
+	stack->pos_max = 0;;
+	stack->min_a = 0;
+	stack->max_a = 0;
+	stack->size_a = 0;
+	stack->size_b = 0;
+	stack->ops_min = 0;
+	stack->a = NULL;
+	stack->b = NULL;
+	stack->size_a = 0;
+	stack->size_b = 0;
 }

@@ -1,30 +1,5 @@
 #include "push_swap.h"
 
-void	find_min_max_a(t_stack *stack)
-{
-	int	i;
-
-	i = 0;
-	stack->min_a = stack->a[0];
-	while (++i < stack->size_a)
-	{
-		if (stack->a[i] < stack->min_a)
-		{
-			stack->min_a = stack->a[i];
-			stack->pos_min = i;
-		}
-	}
-	i = 0;
-	stack->max_a = stack->a[0];
-	while (++i < stack->size_a)
-	{
-		if (stack->a[i] > stack->max_a)
-		{
-			stack->max_a = stack->a[i];
-			stack->pos_max = i;
-		}
-	}
-}
 void	find_ops_min(t_stack *stack)
 {
 	int	i;
