@@ -11,7 +11,8 @@ void	sa(t_stack *stack, int flag)
 	stack->a[1] = x;
 	stack->num_of_ops+=1;
 	if (flag)
-		write(1, "sa\n", 3);
+		/*write(1, "sa\n", 3);*/
+		stack->num_of_ops = stack->num_of_ops;
 }
 
 void	sb(t_stack *stack, int flag)
@@ -25,13 +26,15 @@ void	sb(t_stack *stack, int flag)
 	stack->b[1] = x;
 	stack->num_of_ops+=1;
 	if (flag)
-		write(1, "sb\n", 3);
+		stack->num_of_ops = stack->num_of_ops;
+		/*write(1, "sb\n", 3);*/
 }
 
 void	ss(t_stack *stack, int flag)
 {
-	sa(stack);
-	sb(stack);
+	sa(stack, flag);
+	sb(stack, flag);
 	if (flag)
-		write(1, "ss\n", 3);
+		stack->num_of_ops = stack->num_of_ops;
+		/*write(1, "ss\n", 3);*/
 }

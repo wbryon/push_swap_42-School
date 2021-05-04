@@ -36,7 +36,7 @@ void    sort_four(t_stack *stack)
 			rra(stack, 1);
 	}
     pb(stack, 1);
-    sort_three(stack, 1);
+    sort_three(stack);
     pa(stack, 1);
 }
 
@@ -44,15 +44,15 @@ void	sort_five(t_stack *stack)
 {
 	find_min_max_a(stack);
 	if (stack->pos_max < 3 && stack->pos_min < 3)
-		case_a(stack, 1);
+		case_a(stack);
 	else if (stack->pos_max > 2 && stack->pos_min > 2)
-		case_b(stack, 1);
+		case_b(stack);
 	else if ((stack->pos_max == 0 || stack->pos_min == 0)
 		&& (stack->pos_max > 3 || stack->pos_min > 3))
-		case_c(stack, 1);
+		case_c(stack);
 	else
-		case_d(stack, 1);
-	sort_three(stack, 1);
+		case_d(stack);
+	sort_three(stack);
 	pa(stack, 1);
 	if (stack->a[0] == stack->max_a)
 		ra(stack, 1);

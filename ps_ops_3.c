@@ -1,10 +1,48 @@
 #include "push_swap.h"
 
+void	pb(t_stack *stack, int flag)
+{
+	int	*tmp;
+
+	if (!stack->size_a)
+		return ;
+	stack->size_b++;
+	tmp = stack->b;
+	stack->b = ft_realloc(tmp, stack->a[0], stack->size_b, 1);
+	free(tmp);
+	stack->size_a--;
+	tmp = stack->a;
+	stack->a = ft_realloc(tmp, stack->b[0], stack->size_a, 0);
+	free(tmp);
+	if (flag)
+		stack->num_of_ops = stack->num_of_ops;
+		/*write(1, "pb\n", 3);*/
+}
+
 void	rrr(t_stack *stack, int flag)
 {
-	rra(stack);
-	rrb(stack);
+	rra(stack, flag);
+	rrb(stack, flag);
 	stack->num_of_ops+=1;
+}
+
+void	pa(t_stack *stack, int flag)
+{
+	int	*tmp;
+
+	if (!stack->size_b)
+		return ;
+	stack->size_a++;
+	tmp = stack->a;
+	stack->a = ft_realloc(tmp, stack->b[0], stack->size_a, 1);
+	free(tmp);
+	stack->size_b--;
+	tmp = stack->b;
+	stack->b = ft_realloc(tmp, stack->a[0], stack->size_b, 0);
+	free(tmp);
+	if (flag)
+		stack->num_of_ops = stack->num_of_ops;
+		/*write(1, "pa\n", 3);*/
 }
 
 int	check_range(t_stack *stack)
@@ -28,7 +66,7 @@ int	check_range(t_stack *stack)
 	return (0);
 }
 
-static int	*ft_realloc(int *tmp, int value, int size, int flag)
+int	*ft_realloc(int *tmp, int value, int size, int flag)
 {
 	int	i;
 	int	*temp;
@@ -55,40 +93,4 @@ static int	*ft_realloc(int *tmp, int value, int size, int flag)
 		}
 	}
 	return (temp);
-}
-
-void	pa(t_stack *stack, int flag)
-{
-	int	*tmp;
-
-	if (!stack->size_b)
-		return ;
-	stack->size_a++;
-	tmp = stack->a;
-	stack->a = ft_realloc(tmp, stack->b[0], stack->size_a, 1);
-	free(tmp);
-	stack->size_b--;
-	tmp = stack->b;
-	stack->b = ft_realloc(tmp, stack->a[0], stack->size_b, 0);
-	free(tmp);
-	if (flag)
-		write(1, "pa\n", 3);
-}
-
-void	pb(t_stack *stack, int flag)
-{
-	int	*tmp;
-
-	if (!stack->size_a)
-		return ;
-	stack->size_b++;
-	tmp = stack->b;
-	stack->b = ft_realloc(tmp, stack->a[0], stack->size_b, 1);
-	free(tmp);
-	stack->size_a--;
-	tmp = stack->a;
-	stack->a = ft_realloc(tmp, stack->b[0], stack->size_a, 0);
-	free(tmp);
-	if (flag)
-		write(1, "pb\n", 3);
 }

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static  void    do_commands(t_stack *stack, char *line)
+void    do_commands(t_stack *stack, char *line)
 {
 	if (!ft_strcmp(line, "sa"))
 		sa(stack, 0);
@@ -28,7 +28,7 @@ static  void    do_commands(t_stack *stack, char *line)
 		ft_error();
 }
 
-static void	read_commands(t_stack *stack)
+void	read_commands(t_stack *stack)
 {
 	char	*line;
 

@@ -1,16 +1,16 @@
 #include "push_swap.h"
 
-static void	ft_split_args(int argc, char **argv, t_stack *stack)
+void	ft_split_args(int argc, char **argv, t_stack *stack)
 {
 	int		i;
-	char	**buff;
+	char	**buffer;
 
 	i = 1;
 	while (i < argc)
 	{
-		buff = ft_split(argv[i], ' ');
-		ft_fill_stack(stack, buff);
-		free(buff);
+		buffer = ft_split(argv[i], ' ');
+		ft_fill_stack(stack, buffer);
+		free(buffer);
 		i++;
 	}
 }
@@ -18,13 +18,25 @@ static void	ft_split_args(int argc, char **argv, t_stack *stack)
 int	main(int argc, char **argv)
 {
 	t_stack stack;
+	t_buf	buf;
 
 	if (argc == 1)
 		exit(-1);
 	init_vars(&stack);
 	ft_split_args(argc, argv, &stack);
 	check_range(&stack);
+	index_stack(&stack, &buf);
+	int	k = -1;
+	while (++k < stack.size_a)
+		printf("%d\n", buf.buf[k]);
 	global_sort(&stack);
+	while (stack.a[0] != stack.min_a)
+	{
+		if (stack.pos_min <= stack.size_a / 2)
+			ra(&stack, 1);
+		else
+			rra(&stack, 1);
+	}
 	free_all(&stack);
 	return (0);
 }

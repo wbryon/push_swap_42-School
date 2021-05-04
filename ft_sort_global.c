@@ -92,12 +92,6 @@ void	get_commands_b(t_stack *s)
 			s->op_name_b[s->size_b / 2] = "rrb";
 }
 
-void	get_commands(t_stack *s)
-{
-	get_commands_a(s);
-	get_commands_b(s);
-}
-
 void	rot_calc(t_stack *s)
 {
 	int	i;
@@ -128,6 +122,15 @@ void	rot_calc(t_stack *s)
 	}
 }
 
+void	commands(t_stack *s)
+{
+	find_min_max_a(s);
+	get_commands_a(s);
+	get_commands_b(s);
+	rot_calc(s);
+	find_ops_min(s);
+}
+
 void	global_sort(t_stack *s)
 {
 	int	i;
@@ -143,11 +146,7 @@ void	global_sort(t_stack *s)
 		i = -1;
 		while (++i < s->size_b)
 		{
-			find_min_max_a(s);
-			get_commands_a(s);
-			get_commands_b(s);
-			rot_calc(s);
-			find_ops_min(s);
+			commands(s);
 			flags(s, i);
 			if (s->sum_ops[i] == s->ops_min && s->flag == 1)
 				do_rr(s, i);

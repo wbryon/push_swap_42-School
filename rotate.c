@@ -93,7 +93,7 @@ void	do_rra_rb(t_stack *stack, int i)
 
 void	final_build(t_stack *stack)
 {
-	find_min_max_a(stack, 1);
+	find_min_max_a(stack);
 	while (stack->a[0] != stack->min_a)
 	{
 		if (stack->pos_min < stack->size_a / 2 + 1)

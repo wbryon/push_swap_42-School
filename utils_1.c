@@ -17,36 +17,36 @@ void	case_a(t_stack *stack)
 {
 	if (stack->pos_max < 2 && stack->pos_min < 2)
 	{
-		pb(stack);
-		pb(stack);
+		pb(stack, 1);
+		pb(stack, 1);
 	}
 	else if (stack->pos_min != 0 && stack->pos_max != 0)
 	{
-		ra(stack);
-		pb(stack);
-		pb(stack);
+		ra(stack, 1);
+		pb(stack, 1);
+		pb(stack, 1);
 	}
 	else if (stack->pos_min != 1 && stack->pos_max != 1)
 	{
-		pb(stack);
-		ra(stack);
-		pb(stack);
+		pb(stack, 1);
+		ra(stack, 1);
+		pb(stack, 1);
 	}
 }
 
 void	case_b(t_stack *stack)
 {
-	rra(stack);
-	pb(stack);
-	rra(stack);
-	pb(stack);
+	rra(stack, 1);
+	pb(stack, 1);
+	rra(stack, 1);
+	pb(stack, 1);
 }
 
 void	case_c(t_stack *stack)
 {
-	pb(stack);
-	rra(stack);
-	pb(stack);
+	pb(stack, 1);
+	rra(stack, 1);
+	pb(stack, 1);
 }
 
 void	case_d(t_stack *stack)
@@ -54,19 +54,19 @@ void	case_d(t_stack *stack)
 	if (stack->pos_min < stack->pos_max)
 	{
 		while (stack->a[0] != stack->min_a)
-			ra(stack);
-		pb(stack);
+			ra(stack, 1);
+		pb(stack, 1);
 		while (stack->a[0] != stack->max_a)
-			ra(stack);
-		pb(stack);
+			ra(stack, 1);
+		pb(stack, 1);
 	}
 	else
 	{
 		while (stack->a[0] != stack->max_a)
-			ra(stack);
-		pb(stack);
+			ra(stack, 1);
+		pb(stack, 1);
 		while (stack->a[0] != stack->min_a)
-			ra(stack);
-		pb(stack);
+			ra(stack, 1);
+		pb(stack, 1);
 	}
 }

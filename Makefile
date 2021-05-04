@@ -8,7 +8,8 @@ SRCS_PS		= push_swap.c \
 			  utils_1.c \
 			  utils_2.c \
 			  utils_3.c \
-			  init_vars.c
+			  list.c \
+			  ascend_index.c
 
 SRCS_CH		= checker.c \
 			  rotate.c \
@@ -22,11 +23,16 @@ SRCS_CH		= checker.c \
 			  utils_1.c \
 			  utils_2.c \
 			  utils_3.c \
-			  init_vars.c
+			  list.c \
+			  ascend_index.c
 
 OBJS_PS		= $(SRCS_PS:.c=.o)
 
 OBJS_CH		= $(SRCS_CH:.c=.o)
+
+INCL		= push_swap.h \
+			  libft/libft.h \
+			  gnl/get_next_line.h
 
 LIBFT		= libft/*.c
 
@@ -34,34 +40,34 @@ NAME_PS		= push_swap
 
 NAME_CH		= checker
 
-GCC		= 	gcc
-RM		= 	rm -f
+GCC		= 	   gcc
+RM		= 	   rm -f
 
-CFLAGS	= 	-Wall -Wextra -Werror
+CFLAGS	= 	   -Wall -Wextra -Werror
 
-all:		$(NAME_CH) $(NAME_PS)
+all:		   $(NAME_CH) $(NAME_PS)
 
-%.o:		%.c		
-			$(GCC) $(CFLAGS) -c $< -o $@
+%.o:		   %.c		
+			   $(GCC) $(CFLAGS) -c $< -o $@
 
-$(NAME_C):	$(OBJS_CH) $(LIBFT) $(INCL) libft/*.c
-			$(GCC) -lmlx libmlx.dylib -framework OpenGL -framework AppKit $(OBJS_CH) $(LIBFT) -o $(NAME_CH)
+$(NAME_CH):	   $(OBJS_CH) $(LIBFT) $(INCL) libft/*.c
+			   $(GCC) $(OBJS_CH) $(LIBFT) -o $(NAME_CH)
 
-$(NAME_PS): $(OBJS_PS) $(LIBFT) $(INCL) libft/*.c
-			$(GCC) $(OBJS_PS) $(LIBFT) -o $(NAME_PS)
+$(NAME_PS):    $(OBJS_PS) $(LIBFT) $(INCL) libft/*.c
+			   $(GCC) $(OBJS_PS) $(LIBFT) -o $(NAME_PS)
 
 $(LIBFT):	
-			make -C "libft"
+			   make -C "libft"
 
 clean:		
-			@$(RM) $(OBJS_CH) $(OBJS_PS)
-			make clean -C "libft"
-			@echo "\033[33;31m===> Deleting the objects\033[33;37m"
+			   @$(RM) $(OBJS_CH) $(OBJS_PS)
+			   make clean -C "libft"
+			   @echo "\033[33;31m===> Deleting the objects\033[33;37m"
 
-fclean:		clean
-			$(RM) $(NAME_CH) $(NAME_PS)
-			make fclean -C "libft"
+fclean:		   clean
+			   $(RM) $(NAME_CH) $(NAME_PS)
+			   make fclean -C "libft"
 
-re:			fclean all
+re:			   fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		   all clean fclean re

@@ -22,7 +22,7 @@ void	push_to_b(t_stack *stack)
 
 	i = -1;
 	while (stack->size_a > 5)
-		pb(stack);
+		pb(stack, 1);
 }
 
 void	free_all(t_stack *stack)
