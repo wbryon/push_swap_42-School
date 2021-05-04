@@ -1,51 +1,51 @@
-#include "mlx.h"
-#include "visualizer.h"
-#include "libft.h"
-#include "error_message.h"
-#include "get_next_line.h"
-#include <stdlib.h>
+#include "push_swap.h"
 
-int close(void *param)
-{
-	(void)param;
-	exit(0);
-	return (0);
-}
-
-static void	visualizer(t_visualizer *vs, t_push_swap *ps)
+static	void	visualizer(t_visual *vs, t_buf *ps, t_stack *stack)
 {
 	size_t			size;
 	char			*line;
 
+	line = NULL;
 	mlx_hook(vs->win, 17, 0, close, vs);
 	draw(ps, vs);
 	while ((size = get_next_line(0, &line)) > 0)
 	{
-		exec_command(ps->a_stack, ps->b_stack, line, false);
+		do_commands(stack, line);
 		free(line);
+		line = NULL;
 		draw(ps, vs);
+	}
+	if (line)
+	{
+		free(line);
+		line = NULL;
 	}
 	mlx_loop(vs->mlx);
 }
 
-int			main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_visualizer	*vs;
-	t_push_swap		*ps;
+	int			i;
+	char		**buff;
+	t_stack		stack;
+	t_visual	vs;
+	t_buf		ps;
 
-	vs = NULL;
-	ps = NULL;
-	if (argc >= 2)
+	if (argc == 1)
+		exit(1);
+	init_vars(&stack);
+	i = 1;
+	while (i < argc)
 	{
-		ps = init_push_swap(argc, argv);
-		vs = init_visualizer();
+		buff = ft_split(argv[i], ' ');
+		ft_fill_stack(&stack, buff);
+		free(buff);
+		i++;
 	}
-	if (ps && ps->a_stack->size <= HEIGHT)
-		visualizer(vs, ps);
-	else
-	{
-		ft_putendl(ERR_VS_USAGE);
-		ft_putendl(VS_HELP);
-	}
+	check_range(&stack);
+	index_stack(&stack, &ps);
+	visualizer(&vs, &ps, &stack);
+	free(stack.a);
+	free(stack.b);
 	return (0);
 }

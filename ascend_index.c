@@ -12,7 +12,7 @@ int get_next_min(t_stack *stack, t_buf *buffer)
     index = 0;
     while (++i < stack->size_a)
     {
-        if ((buffer->buf[i] == -1) && (!has_min || stack->a[i] < min))
+        if ((buffer->a_stack[i] == -1) && (!has_min || stack->a[i] < min))
         {
             has_min = 1;
             min = stack->a[i];
@@ -29,14 +29,17 @@ void    index_stack(t_stack *stack, t_buf *buffer)
 
     i = -1;
     index = 0;
-    buffer->buf = (int *)ft_calloc(stack->size_a, sizeof(int));
+    buffer->a_stack = (int *)ft_calloc(stack->size_a, sizeof(int));
     buffer->index = 0;
     while (++i < stack->size_a)
-        buffer->buf[i] = -1;
+        buffer->a_stack[i] = -1;
     i = -1;
     while (++i < stack->size_a)
     {
         index = get_next_min(stack, buffer);
-        buffer->buf[index] = buffer->index++;
+        buffer->a_stack[index] = buffer->index++;
     }
+    i = -1;
+    while (i < stack->size_a)
+        stack->a[i] = buffer->a_stack[i];
 }

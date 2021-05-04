@@ -1,23 +1,29 @@
-#include "visualizer.h"
-#include "mlx.h"
-#include "error_message.h"
-#include <stdlib.h>
+#include "push_swap.h"
 
-static void	put_pixel(t_visualizer *vs,
-				int x,
-				int y,
-				int color)
+t_area	*create_area(int x_start, int x_end, int y_start, int y_end)
+{
+	t_area *area;
+
+	area = (t_area *)malloc(sizeof(t_area));
+	if (!area)
+		exit(-1);
+	area->x_start = x_start;
+	area->x_end = x_end;
+	area->y_start = y_start;
+	area->y_end = y_end;
+	return (area);
+}
+static void	put_pixel(t_visual *vs, int x, int y, int color)
 {
 	int		i;
 
-	i = (x * vs->bits_per_pixel / 8) + (y * vs->size_line);
+	i = (x * vs->bpp / 8) + (y * vs->size_line);
 	vs->data_addr[i] = color;
 	vs->data_addr[++i] = color >> 8;
 	vs->data_addr[++i] = color >> 16;
 }
 
-static void	draw_rectangle(t_visualizer *vs,
-				t_rectangle *rectangle)
+static void	draw_area(t_visual *vs, t_area *rectangle)
 {
 	int	x;
 	int	y;
@@ -39,35 +45,27 @@ static void	draw_rectangle(t_visualizer *vs,
 	}
 }
 
-static void	draw_stack(t_push_swap *ps,
-				t_visualizer *vs,
-				t_stack *stack,
-				int x_start)
+static void	draw_stack(t_buf *ps, t_visual *vs, t_stack *stack, int x_start)
 {
-	size_t			i;
-	t_stack_elem	*current;
-	t_rectangle		*rectangle;
+	int		i;
+	t_area	*area;
 
 	i = 0;
-	current = stack->head;
-	while (i < stack->size)
+	while (i < stack->size_a)
 	{
-		rectangle = create_rectangle(x_start,
-			x_start + (current->index + 1) * ps->width_coeff,
-			i * ps->height_coeff, (i + 1) * ps->height_coeff);
-		draw_rectangle(vs, rectangle);
-		free(rectangle);
+		area = create_area(x_start, x_start + (stack->a[i] + 1) * ps->w_coef, i * ps->h_coef, (i + 1) * ps->h_coef);
+		draw_area(vs, area);
+		free(area);
 		i++;
-		current = current->next;
 	}
 }
 
-static void	draw_background(t_visualizer *vs)
+static void	draw_background(t_visual *vs)
 {
 	int	*image;
 	int	i;
 
-	ft_bzero(vs->data_addr, WIDTH * HEIGHT * (vs->bits_per_pixel / 8));
+	ft_bzero(vs->data_addr, WIDTH * HEIGHT * (vs->bpp / 8));
 	image = (int *)(vs->data_addr);
 	i = 0;
 	while (i < HEIGHT * WIDTH)
@@ -77,12 +75,11 @@ static void	draw_background(t_visualizer *vs)
 	}
 }
 
-void		draw(t_push_swap *ps,
-				t_visualizer *vs)
+void	draw(t_buf *ps, t_visual *vs, t_stack *stack)
 {
 	draw_background(vs);
-	draw_stack(ps, vs, ps->a_stack, 0);
-	draw_stack(ps, vs, ps->b_stack, WIDTH / 2);
+	draw_stack(ps, vs, stack->a, 0);
+	draw_stack(ps, vs, stack->b, WIDTH / 2);
 	mlx_put_image_to_window(vs->mlx, vs->win, vs->img, 0, 0);
 	mlx_do_sync(vs->mlx);
 }

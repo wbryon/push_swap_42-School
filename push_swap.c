@@ -18,17 +18,12 @@ void	ft_split_args(int argc, char **argv, t_stack *stack)
 int	main(int argc, char **argv)
 {
 	t_stack stack;
-	t_buf	buf;
 
 	if (argc == 1)
 		exit(-1);
 	init_vars(&stack);
 	ft_split_args(argc, argv, &stack);
 	check_range(&stack);
-	index_stack(&stack, &buf);
-	int	k = -1;
-	while (++k < stack.size_a)
-		printf("%d\n", buf.buf[k]);
 	global_sort(&stack);
 	while (stack.a[0] != stack.min_a)
 	{
@@ -37,6 +32,7 @@ int	main(int argc, char **argv)
 		else
 			rra(&stack, 1);
 	}
+	
 	free_all(&stack);
 	return (0);
 }

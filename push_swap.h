@@ -1,8 +1,12 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# define WIN_W 800
-# define WIN_H 600
+# define WIDTH 800
+# define HEIGHT 600
 # define IMG_SIZE 500
+
+# define GREY_1		0x333333
+# define GREY_2		0x222222
+# define YELLOW		0xF0D347
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -11,28 +15,32 @@
 # include "mlx.h"
 # include <stdio.h>
 
-typedef	struct	s_arg
-{
-	int				number;
-	int				index;
-	struct	s_arg	*next;
-}					t_arg;
-
-typedef	struct	s_elem
-{
-	t_arg	*a;
-	t_arg	*b;
-	int		len_a;
-	int		len_b;
-}				t_elem;
-
 typedef	struct	s_buf
 {
-	int	*buf;
-	int	index;
+	int			w_coef;
+	int			h_coef;
+	int			*a_stack;
+	int			index;
 }				t_buf;
 
+typedef struct	s_visual
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*data_addr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_visual;
 
+typedef struct	s_area
+{
+	int			x_start;
+	int			x_end;
+	int			y_start;
+	int			y_end;
+}				t_area;
 
 typedef	struct	s_stack
 {
@@ -54,11 +62,6 @@ typedef	struct	s_stack
     char        **op_name_b;
 }				t_stack;
 
-t_arg   		*ft_lstnew(int number, int index);
-t_arg			*ft_lstlast(t_arg *lst);
-void			ft_lstadd_front(t_arg **lst, t_arg *new);
-void			ft_lstadd_back(t_arg **lst, t_arg *new);
-void 			add_last(t_stack *stack, t_elem *elem);
 void			sa(t_stack *stack, int flag);
 void			sb(t_stack *stack, int flag);
 void			ss(t_stack *stack, int flag);

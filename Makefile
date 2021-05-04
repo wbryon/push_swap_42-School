@@ -8,7 +8,6 @@ SRCS_PS		= push_swap.c \
 			  utils_1.c \
 			  utils_2.c \
 			  utils_3.c \
-			  list.c \
 			  ascend_index.c
 
 SRCS_CH		= checker.c \
@@ -23,8 +22,8 @@ SRCS_CH		= checker.c \
 			  utils_1.c \
 			  utils_2.c \
 			  utils_3.c \
-			  list.c \
-			  ascend_index.c
+			  ascend_index.c \
+			  commands.c
 
 OBJS_PS		= $(SRCS_PS:.c=.o)
 
