@@ -1,19 +1,5 @@
 #include "visualizer.h"
 
-static	t_area	*create_area(int x_start, int x_end, int y_start, int y_end)
-{
-	t_area	*area;
-
-	area = (t_area *)malloc(sizeof(t_area));
-	if (!area)
-		exit(-1);
-	area->x_start = x_start;
-	area->x_end = x_end;
-	area->y_start = y_start;
-	area->y_end = y_end;
-	return (area);
-}
-
 static void	put_pixel(t_visual *vs, int x, int y, int color)
 {
 	int		i;
@@ -69,11 +55,13 @@ static void	draw_background(t_visual *vs)
 
 	ft_bzero(vs->data_addr, WIDTH * HEIGHT * (vs->bpp / 8));
 	image = (int *)(vs->data_addr);
-	i = 0;
-	while (i < HEIGHT * WIDTH)
+	i = -1;
+	while (++i < HEIGHT * WIDTH)
 	{
-		image[i] = (i % WIDTH < WIDTH / 2) ? GREY_1 : GREY_2;
-		i++;
+		if (i % WIDTH < WIDTH / 2)
+			image[i] = GREY_1;
+		else
+			image[i] = GREY_2;
 	}
 }
 

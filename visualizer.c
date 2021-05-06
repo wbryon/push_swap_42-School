@@ -1,5 +1,19 @@
 #include "visualizer.h"
 
+t_area	*create_area(int x_start, int x_end, int y_start, int y_end)
+{
+	t_area	*area;
+
+	area = (t_area *)malloc(sizeof(t_area));
+	if (!area)
+		exit(-1);
+	area->x_start = x_start;
+	area->x_end = x_end;
+	area->y_start = y_start;
+	area->y_end = y_end;
+	return (area);
+}
+
 int	exit_hook(void)
 {
 	exit(0);
@@ -9,8 +23,8 @@ int	exit_hook(void)
 static void	init_visualizer(t_visual *vs, t_stack *stack)
 {
 	vs->mlx = mlx_init();
-	vs->w_coef = WIDTH / 2 / stack->size_a;
-	vs->h_coef = HEIGHT / stack->size_a;
+	vs->w_coef = WIDTH / 2.0 / stack->size_a;
+	vs->h_coef = HEIGHT / 1.0 / stack->size_a;
 	vs->win = mlx_new_window(vs->mlx, WIDTH, HEIGHT, "Push Swap");
 	vs->img = mlx_new_image(vs->mlx, WIDTH, HEIGHT);
 	vs->data_addr = mlx_get_data_addr(vs->img,
@@ -29,7 +43,7 @@ static void	visualizer(t_visual *vs, t_stack *stack)
 		do_cmd(stack, line);
 		free(line);
 		line = NULL;
-		draw(ps, vs, stack);
+		draw(vs, stack);
 	}
 	if (line)
 	{
@@ -58,7 +72,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	check_range(&stack);
-	index_stack(&stack, &vs);
+	index_stack(&vs, &stack);
 	init_visualizer(&vs, &stack);
 	visualizer(&vs, &stack);
 	free(stack.a);

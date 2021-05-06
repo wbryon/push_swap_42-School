@@ -16,7 +16,7 @@ static void	split_args(int argc, char **argv, t_stack *stack)
 
 int	main(int argc, char **argv)
 {
-	t_stack stack;
+	t_stack	stack;
 
 	if (argc == 1)
 		exit(-1);
@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 		sort_five(&stack);
 	else
 		global_sort(&stack);
-	
 	free(stack.a);
 	free(stack.b);
 	return (0);

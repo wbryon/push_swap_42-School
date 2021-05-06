@@ -1,6 +1,6 @@
 #include "visualizer.h"
 
-int	get_next_min(t_stack *stack, t_buf *buffer)
+int	get_next_min(t_stack *stack, t_visual *vs)
 {
 	int	i;
 	int	min;
@@ -12,7 +12,7 @@ int	get_next_min(t_stack *stack, t_buf *buffer)
 	index = 0;
 	while (++i < stack->size_a)
 	{
-		if ((buffer->a_stack[i] == -1) && (!has_min || stack->a[i] < min))
+		if ((vs->a_stack[i] == -1) && (!has_min || stack->a[i] < min))
 		{
 			has_min = 1;
 			min = stack->a[i];
@@ -22,24 +22,24 @@ int	get_next_min(t_stack *stack, t_buf *buffer)
 	return (index);
 }
 
-void	index_stack(t_stack *stack, t_buf *buffer)
+void	index_stack(t_visual *vs, t_stack *stack)
 {
 	int	i;
 	int	index;
 
 	i = -1;
 	index = 0;
-	buffer->a_stack = (int *)ft_calloc(stack->size_a, sizeof(int));
-	buffer->index = 0;
+	vs->a_stack = (int *)ft_calloc(stack->size_a, sizeof(int));
+	vs->index = 0;
 	while (++i < stack->size_a)
-		buffer->a_stack[i] = -1;
+		vs->a_stack[i] = -1;
 	i = -1;
 	while (++i < stack->size_a)
 	{
-		index = get_next_min(stack, buffer);
-		buffer->a_stack[index] = buffer->index++;
+		index = get_next_min(stack, vs);
+		vs->a_stack[index] = vs->index++;
 	}
 	i = -1;
 	while (++i < stack->size_a)
-		stack->a[i] = buffer->a_stack[i];
+		stack->a[i] = vs->a_stack[i];
 }
