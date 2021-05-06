@@ -1,6 +1,24 @@
 #include "push_swap.h"
 
-void    do_commands(t_stack *stack, char *line)
+void	read_cmd(t_stack *stack)
+{
+	char	*line;
+
+	line = NULL;
+	while (get_next_line(0, &line))
+	{
+		do_cmd(stack, line);
+		free(line);
+		line = NULL;
+	}
+	if (line)
+	{
+		free(line);
+		line = NULL;
+	}
+}
+
+void	do_cmd(t_stack *stack, char *line)
 {
 	if (!ft_strcmp(line, "sa"))
 		sa(stack, 0);
@@ -26,22 +44,4 @@ void    do_commands(t_stack *stack, char *line)
 		rrr(stack, 0);
 	else
 		ft_error();
-}
-
-void	read_commands(t_stack *stack)
-{
-	char	*line;
-
-	line = NULL;
-	while (get_next_line(0, &line))
-	{
-		do_commands(stack, line);
-		free(line);
-		line = NULL;
-	}
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
 }

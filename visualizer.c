@@ -1,19 +1,35 @@
-#include "push_swap.h"
+#include "visualizer.h"
 
-static	void	visualizer(t_visual *vs, t_buf *ps, t_stack *stack)
+int	exit_hook(void)
 {
-	size_t			size;
-	char			*line;
+	exit(0);
+	return (0);
+}
 
+static void	init_visualizer(t_visual *vs, t_stack *stack)
+{
+	vs->mlx = mlx_init();
+	vs->w_coef = WIDTH / 2 / stack->size_a;
+	vs->h_coef = HEIGHT / stack->size_a;
+	vs->win = mlx_new_window(vs->mlx, WIDTH, HEIGHT, "Push Swap");
+	vs->img = mlx_new_image(vs->mlx, WIDTH, HEIGHT);
+	vs->data_addr = mlx_get_data_addr(vs->img,
+			&vs->bpp, &vs->size_line, &vs->endian);
+}
+
+static void	visualizer(t_visual *vs, t_stack *stack)
+{
+	char	*line;
+
+	mlx_hook(vs->win, 17, 0, exit_hook, vs);
+	draw(vs, stack);
 	line = NULL;
-	mlx_hook(vs->win, 17, 0, close, vs);
-	draw(ps, vs);
-	while ((size = get_next_line(0, &line)) > 0)
+	while (get_next_line(0, &line))
 	{
-		do_commands(stack, line);
+		do_cmd(stack, line);
 		free(line);
 		line = NULL;
-		draw(ps, vs);
+		draw(ps, vs, stack);
 	}
 	if (line)
 	{
@@ -29,22 +45,22 @@ int	main(int argc, char **argv)
 	char		**buff;
 	t_stack		stack;
 	t_visual	vs;
-	t_buf		ps;
 
 	if (argc == 1)
 		exit(1);
-	init_vars(&stack);
+	init_stack(&stack);
 	i = 1;
 	while (i < argc)
 	{
 		buff = ft_split(argv[i], ' ');
-		ft_fill_stack(&stack, buff);
+		fill_stack(&stack, buff);
 		free(buff);
 		i++;
 	}
 	check_range(&stack);
-	index_stack(&stack, &ps);
-	visualizer(&vs, &ps, &stack);
+	index_stack(&stack, &vs);
+	init_visualizer(&vs, &stack);
+	visualizer(&vs, &stack);
 	free(stack.a);
 	free(stack.b);
 	return (0);

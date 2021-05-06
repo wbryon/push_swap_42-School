@@ -1,66 +1,69 @@
 #include "push_swap.h"
 
-void	if_sorted(t_stack *stack)
+void	check_isdigit(char *str)
 {
 	int	i;
-	int	flag;
 
-	i = -1;
-	flag = 0;
-	while (++i < stack->size_a - 1)
+	i = 0;
+	if (str[0] == '-')
+		i++;
+	while (str[i])
 	{
-		if (stack->a[i] > stack->a[i + 1])
-			flag = 1;
+		if (!ft_isdigit(str[i]))
+			ft_error();
+		i++;
 	}
-	if (flag == 0)
-		write(1, "sorted\n", 7);
 }
 
-void	push_to_b(t_stack *stack)
+void	check_range(t_stack *stack)
 {
 	int	i;
+	int	j;
 
-	i = -1;
-	while (stack->size_a > 5)
-		pb(stack, 1);
+	i = 0;
+	while (++i < stack->size_a)
+	{
+		j = -1;
+		while (++j < i)
+		{
+			if (stack->a[j] == stack->a[i])
+				ft_error();
+		}
+	}
 }
 
-void	free_all(t_stack *stack)
+void	init_stack(t_stack *stack)
 {
-	free(stack->op_count_a);
-	free(stack->op_count_b);
-	free(stack->op_name_a);
-	free(stack->op_name_b);
-	free(stack->sum_ops);
-}
-
-void	flags(t_stack *s, int i)
-{
-	if (ft_strcmp(s->op_name_a[i], "ra") == 0 && ft_strcmp(s->op_name_b[i], "rb") == 0)
-		s->flag = 1;
-	else if (ft_strcmp(s->op_name_a[i], "rra") == 0 && ft_strcmp(s->op_name_b[i], "rrb") == 0)
-		s->flag = 2;
-	else if (ft_strcmp(s->op_name_a[i], "ra") == 0 && ft_strcmp(s->op_name_b[i], "rrb") == 0)
-		s->flag = 3;
-	else if (ft_strcmp(s->op_name_a[i], "rra") == 0 && ft_strcmp(s->op_name_b[i], "rb") == 0)
-		s->flag = 4;
-	else
-		s->flag = 5;
-}
-
-void	init_vars(t_stack *stack)
-{
-	stack->num_of_ops = 0;
-	stack->flag = 0;
-	stack->pos_min = 0;
-	stack->pos_max = 0;;
-	stack->min_a = 0;
-	stack->max_a = 0;
-	stack->size_a = 0;
-	stack->size_b = 0;
-	stack->ops_min = 0;
 	stack->a = NULL;
 	stack->b = NULL;
 	stack->size_a = 0;
 	stack->size_b = 0;
+}
+
+void	fill_stack(t_stack *stack, char **buff)
+{
+	int	i;
+	int	*tmp;
+
+	i = 0;
+	while (buff[i])
+		i++;
+	tmp = stack->a;
+	stack->a = (int *)ft_calloc(sizeof(int), stack->size_a + i);
+	if (!stack->a)
+		exit(1);
+	i = -1;
+	while (++i < stack->size_a)
+		stack->a[i] = tmp[i];
+	if (tmp)
+		free(tmp);
+	i = 0;
+	while (buff[i])
+	{
+		check_isdigit(buff[i]);
+		stack->a[stack->size_a] = ft_atoi(buff[i]);
+		stack->size_a++;
+		free(buff[i]);
+		i++;
+	}
 }

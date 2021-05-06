@@ -1,72 +1,60 @@
 #include "push_swap.h"
 
-void	find_ops_min(t_stack *stack)
+int	is_sorted(t_stack *stack)
 {
 	int	i;
 
 	i = -1;
-	stack->ops_min = stack->sum_ops[0];
-	while (++i < stack->size_b)
+	while (++i < stack->size_a - 1)
 	{
-		if (stack->ops_min > stack->sum_ops[i])
-			stack->ops_min = stack->sum_ops[i];
+		if (stack->a[i] > stack->a[i + 1])
+			return (1);
 	}
+	return (0);
 }
 
-void	case_a(t_stack *stack)
+int	find_max(t_stack *stack)
 {
-	if (stack->pos_max < 2 && stack->pos_min < 2)
+	int	i;
+	int	max;
+
+	max = stack->a[0];
+	i = 0;
+	while (i < stack->size_a)
 	{
-		pb(stack, 1);
-		pb(stack, 1);
+		if (stack->a[i] > max)
+			max = stack->a[i];
+		i++;
 	}
-	else if (stack->pos_min != 0 && stack->pos_max != 0)
-	{
-		ra(stack, 1);
-		pb(stack, 1);
-		pb(stack, 1);
-	}
-	else if (stack->pos_min != 1 && stack->pos_max != 1)
-	{
-		pb(stack, 1);
-		ra(stack, 1);
-		pb(stack, 1);
-	}
+	return (max);
 }
 
-void	case_b(t_stack *stack)
+int	find_min(t_stack *stack)
 {
-	rra(stack, 1);
-	pb(stack, 1);
-	rra(stack, 1);
-	pb(stack, 1);
+	int	i;
+	int	min;
+
+	min = stack->a[0];
+	i = 0;
+	while (i < stack->size_a)
+	{
+		if (stack->a[i] < min)
+			min = stack->a[i];
+		i++;
+	}
+	return (min);
 }
 
-void	case_c(t_stack *stack)
+int	get_index(t_stack *stack, int elem)
 {
-	pb(stack, 1);
-	rra(stack, 1);
-	pb(stack, 1);
-}
+	int	i;
 
-void	case_d(t_stack *stack)
-{
-	if (stack->pos_min < stack->pos_max)
+	i = 0;
+	while (i < stack->size_a)
 	{
-		while (stack->a[0] != stack->min_a)
-			ra(stack, 1);
-		pb(stack, 1);
-		while (stack->a[0] != stack->max_a)
-			ra(stack, 1);
-		pb(stack, 1);
+		if (stack->a[i] == elem)
+			return (i);
+		i++;
 	}
-	else
-	{
-		while (stack->a[0] != stack->max_a)
-			ra(stack, 1);
-		pb(stack, 1);
-		while (stack->a[0] != stack->min_a)
-			ra(stack, 1);
-		pb(stack, 1);
-	}
+	return (i);
 }

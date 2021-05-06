@@ -1,106 +1,41 @@
 #include "push_swap.h"
 
-void	do_rr(t_stack *stack, int i)
+void	ra(t_stack *stack, int flag)
 {
-	int	j;
+	int	i;
+	int	tmp;
 
-	j = -1;
-	if (stack->op_count_a[i] >= stack->op_count_b[i])
-	{
-		while (++j < stack->op_count_b[i])
-			rr(stack, 1);
-		while (j < stack->ops_min)
-		{
-			ra(stack, 1);
-			j++;
-		}
-	}
-	else
-	{
-		while (++j < stack->op_count_a[i])
-			rr(stack, 1);
-		while (j < stack->ops_min)
-		{
-			rb(stack, 1);
-			j++;
-		}
-	}
-	pa(stack, 1);
-	return ;
+	if (stack->size_a < 2)
+		return ;
+	tmp = stack->a[0];
+	i = -1;
+	while (++i < stack->size_a - 1)
+		stack->a[i] = stack->a[i + 1];
+	stack->a[i] = tmp;
+	if (flag)
+		write(1, "ra\n", 3);
 }
 
-void	do_rrr(t_stack *stack, int i)
+void	rb(t_stack *stack, int flag)
 {
-	int	j;
+	int	i;
+	int	tmp;
 
-	j = -1;
-
-	if (stack->op_count_a[i] >= stack->op_count_b[i])
-	{
-		while (++j < stack->op_count_b[i])
-			rrr(stack, 1);
-		while (j < stack->ops_min)
-		{
-			rra(stack, 1);
-			j++;
-		}		
-	}
-	else
-	{
-		while (++j < stack->op_count_a[i])
-			rrr(stack, 1);
-		while (j < stack->ops_min)
-		{
-			rrb(stack, 1);
-			j++;
-		}
-	}
-	pa(stack, 1);
-	return ;
+	if (stack->size_b < 2)
+		return ;
+	tmp = stack->b[0];
+	i = -1;
+	while (++i < stack->size_b - 1)
+		stack->b[i] = stack->b[i + 1];
+	stack->b[i] = tmp;
+	if (flag)
+		write(1, "rb\n", 3);
 }
 
-void	do_ra_rrb(t_stack *stack, int i)
+void	rr(t_stack *stack, int flag)
 {
-	int	j;
-
-	j = -1;
-	while (++j < stack->op_count_a[i])
-		ra(stack, 1);
-	while (j < stack->ops_min)
-		{
-			rrb(stack, 1);
-			j++;
-		}
-	pa(stack, 1);
-	return ;
-}
-
-void	do_rra_rb(t_stack *stack, int i)
-{
-	int	j;
-
-	j = -1;
-	while (++j < stack->op_count_a[i])
-		rra(stack, 1);
-	while (j < stack->ops_min)
-	{
-		rb(stack, 1);
-		j++;
-	}
-	pa(stack, 1);
-	return ;
-}
-
-void	final_build(t_stack *stack)
-{
-	find_min_max_a(stack);
-	while (stack->a[0] != stack->min_a)
-	{
-		if (stack->pos_min < stack->size_a / 2 + 1)
-			ra(stack, 1);
-		else
-			rra(stack, 1);
-	}
-	pa(stack, 1);
-	return ;
+	ra(stack, 0);
+	rb(stack, 0);
+	if (flag)
+		write(1, "rr\n", 3);
 }

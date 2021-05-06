@@ -1,5 +1,5 @@
 #include "get_next_line.h"
-/*
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -66,4 +66,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	return (NULL);
 }
-*/

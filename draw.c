@@ -1,8 +1,8 @@
-#include "push_swap.h"
+#include "visualizer.h"
 
-t_area	*create_area(int x_start, int x_end, int y_start, int y_end)
+static	t_area	*create_area(int x_start, int x_end, int y_start, int y_end)
 {
-	t_area *area;
+	t_area	*area;
 
 	area = (t_area *)malloc(sizeof(t_area));
 	if (!area)
@@ -13,6 +13,7 @@ t_area	*create_area(int x_start, int x_end, int y_start, int y_end)
 	area->y_end = y_end;
 	return (area);
 }
+
 static void	put_pixel(t_visual *vs, int x, int y, int color)
 {
 	int		i;
@@ -45,15 +46,16 @@ static void	draw_area(t_visual *vs, t_area *rectangle)
 	}
 }
 
-static void	draw_stack(t_buf *ps, t_visual *vs, t_stack *stack, int x_start)
+static void	draw_stack(t_visual *vs, int *stack, int x_start, int size)
 {
 	int		i;
 	t_area	*area;
 
 	i = 0;
-	while (i < stack->size_a)
+	while (i < size)
 	{
-		area = create_area(x_start, x_start + (stack->a[i] + 1) * ps->w_coef, i * ps->h_coef, (i + 1) * ps->h_coef);
+		area = create_area(x_start, x_start + (stack[i] + 1) * vs->w_coef,
+				i * vs->h_coef, (i + 1) * vs->h_coef);
 		draw_area(vs, area);
 		free(area);
 		i++;
@@ -75,11 +77,11 @@ static void	draw_background(t_visual *vs)
 	}
 }
 
-void	draw(t_buf *ps, t_visual *vs, t_stack *stack)
+void	draw(t_visual *vs, t_stack *stack)
 {
 	draw_background(vs);
-	draw_stack(ps, vs, stack->a, 0);
-	draw_stack(ps, vs, stack->b, WIDTH / 2);
+	draw_stack(vs, stack->a, 0, stack->size_a);
+	draw_stack(vs, stack->b, WIDTH / 2, stack->size_b);
 	mlx_put_image_to_window(vs->mlx, vs->win, vs->img, 0, 0);
 	mlx_do_sync(vs->mlx);
 }
