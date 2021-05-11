@@ -19,16 +19,21 @@ int	main(int argc, char **argv)
 	t_stack	stack;
 
 	if (argc == 1)
-		exit(-1);
+		exit(1);
 	init_stack(&stack);
 	split_args(argc, argv, &stack);
 	check_range(&stack);
-	if (stack.size_a <= 3)
-		sort_three(&stack);
-	else if (stack.size_a <= 5)
-		sort_five(&stack);
+	if (is_sorted(&stack))
+	{
+		if (stack.size_a <= 3)
+			sort_three(&stack);
+		else if (stack.size_a <= 5)
+			sort_five(&stack);
+		else
+			global_sort(&stack);
+	}
 	else
-		global_sort(&stack);
+		exit(1);
 	free(stack.a);
 	free(stack.b);
 	return (0);

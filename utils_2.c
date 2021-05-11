@@ -5,7 +5,7 @@ void	check_isdigit(char *str)
 	int	i;
 
 	i = 0;
-	if (str[0] == '-')
+	if (str[0] == '-' && str[1] != '\0')
 		i++;
 	while (str[i])
 	{
